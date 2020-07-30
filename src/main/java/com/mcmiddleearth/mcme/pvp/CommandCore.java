@@ -1,20 +1,21 @@
+
 /*
  * This file is part of MCME-pvp.
- * 
+ *
  * MCME-pvp is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * MCME-pvp is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with MCME-pvp.  If not, see <http://www.gnu.org/licenses/>.
- * 
- * 
+ *
+ *
  */
 package com.mcmiddleearth.mcme.pvp;
 
@@ -41,7 +42,7 @@ import org.bukkit.inventory.ItemStack;
  * @author Donovan
  */
 public class CommandCore implements TabExecutor{
-    
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
         if(sender instanceof Player){
@@ -83,13 +84,13 @@ public class CommandCore implements TabExecutor{
                         p.sendMessage(args[0] + " is not a loaded world");
                     } else {
                         p.sendMessage("Welcome to " + ChatColor.BLUE + w.getName());
-                            Inventory i = p.getInventory();
-                            i.clear();
-                            p.getInventory().setArmorContents(new ItemStack[] {new ItemStack(Material.AIR), new ItemStack(Material.AIR), new ItemStack(Material.AIR), new ItemStack(Material.AIR)});
-                            p.getInventory().setContents(i.getContents());
-                            if(w.equals(spawn)){
-                                p.setGameMode(GameMode.ADVENTURE);
-                            }
+                        Inventory i = p.getInventory();
+                        i.clear();
+                        p.getInventory().setArmorContents(new ItemStack[] {new ItemStack(Material.AIR), new ItemStack(Material.AIR), new ItemStack(Material.AIR), new ItemStack(Material.AIR)});
+                        p.getInventory().setContents(i.getContents());
+                        if(w.equals(spawn)){
+                            p.setGameMode(GameMode.ADVENTURE);
+                        }
                         p.teleport(w.getSpawnLocation());
                     }
                     return true;
@@ -138,5 +139,5 @@ public class CommandCore implements TabExecutor{
         }
         return null;
     }
-    
+
 }

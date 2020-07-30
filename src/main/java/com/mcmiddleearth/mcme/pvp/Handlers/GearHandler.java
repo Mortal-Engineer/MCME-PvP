@@ -25,11 +25,8 @@ import com.mcmiddleearth.mcme.pvp.Gamemode.TeamSlayer;
 import com.mcmiddleearth.mcme.pvp.PVP.Team;
 import java.util.Arrays;
 import java.util.Random;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.DyeColor;
-import org.bukkit.Effect;
-import org.bukkit.Material;
+
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -209,7 +206,7 @@ public class GearHandler {
                 }
                 
                 if(item.getType().equals(Material.GHAST_TEAR)){
-                    p.getWorld().playEffect((p.getLocation().add(0.0, 1.0, 0.0)), Effect.SMOKE, 4);
+                    p.getWorld().playEffect(p.getLocation().add(Dir('x', p.getLocation().getYaw())+ 0.5, 1.0, Dir('z', p.getLocation().getYaw())), Effect.SMOKE, 4);
                     return;
                 }
                 
@@ -320,8 +317,12 @@ public class GearHandler {
                         giveCustomItem(newTntHolder, CustomItem.TNT);
                     }
                 }
-                
             }
+        }
+        public double Dir(char dir, double yaw){
+            if(dir == 'x')
+                return -0.8 *Math.sin(Math.toRadians(yaw));
+            return 0.8 * Math.cos(Math.toRadians(yaw));
         }
     }
 }

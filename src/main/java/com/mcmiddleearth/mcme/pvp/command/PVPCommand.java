@@ -21,6 +21,7 @@ package com.mcmiddleearth.mcme.pvp.command;
 import com.google.common.collect.Lists;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+import com.mcmiddleearth.mcme.pvp.Handlers.GearHandler;
 import com.mcmiddleearth.mcme.pvp.PVPPlugin;
 import com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGamemode.GameState;
 import com.mcmiddleearth.mcme.pvp.Handlers.BukkitTeamHandler;
@@ -34,11 +35,8 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
-import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -49,6 +47,8 @@ import java.io.File;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+
+import static com.mcmiddleearth.mcme.pvp.Handlers.GearHandler.CustomItem.PIPE;
 
 
 public class PVPCommand extends CommandDispatcher<Player>{
@@ -77,7 +77,11 @@ public class PVPCommand extends CommandDispatcher<Player>{
                     return 1;} ))
                 .then(RequiredArgumentBuilder.<Player, String>argument("name", new CommandNewMapArgument()).requires( c -> c.hasPermission(Permissions.PVP_ADMIN.getPermissionNode())).executes(c ->{
                     doCommand("createMap", c.getArgument("name", String.class), c.getSource());
-                    return 1; })))
+                    return 1; }))
+                .then(LiteralArgumentBuilder.<Player>literal("spawn").requires(c -> c.hasPermission(Permissions.JOIN.getPermissionNode()))
+                    .then(RequiredArgumentBuilder.<Player, String>argument("name", new CommandMapArgument()).executes(c ->{
+                    doCommand("teleport", c.getArgument("name", String.class), c.getSource());
+                    return 1;}))))
             .then(LiteralArgumentBuilder.<Player>literal("game")
                 .then(LiteralArgumentBuilder.<Player>literal("quickstart").requires( c -> c.hasPermission(Permissions.RUN.getPermissionNode()))
                     .then(RequiredArgumentBuilder.<Player, String>argument( "map", new CommandMapArgument()).executes(c -> {
@@ -309,7 +313,7 @@ public class PVPCommand extends CommandDispatcher<Player>{
                 source.setGameMode(GameMode.SURVIVAL);
                 break;
             case "pipe":
-                Logger.getLogger("logger").log(Level.INFO, "pipe command recieved");
+                GearHandler.giveCustomItem(source, PIPE);
                 break;
             case "stats":
                 PlayerStat ps = PlayerStat.getPlayerStats().get(source.getDisplayName());
@@ -491,6 +495,11 @@ public class PVPCommand extends CommandDispatcher<Player>{
                 break;
             case "setArea":
                 MapEditor.MapAreaSet(argument, source);
+                break;
+            case "teleport":
+                Location spawn = Map.maps.get(argument).getSpawn().toBukkitLoc();
+                source.teleport(spawn);
+                source.sendMessage("You have been teleported to " + argument);
                 break;
         }
     }

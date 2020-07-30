@@ -11,8 +11,7 @@ This project is once again in development!
 * /pvp help - guide for setting up maps and starting games
 * Keep track of sessions for players so they can be reassigned to the same team on rejoin
 * /pvp assign \<player> \<team> to assign a player to a certain team in a running game
-* /pvp warp (map name)
-* Include pipe
+* pipe smoke texture
 
 ### Code improvements
 * Simplify the command files so they're easier to read
@@ -20,6 +19,7 @@ This project is once again in development!
 
 ### New Features
 * UI for map creation and editing (with showing spawns)
+* Teleportation to maps
 * Brigadier command parser
 * An actual queue for PVP
 * An updated permission system
