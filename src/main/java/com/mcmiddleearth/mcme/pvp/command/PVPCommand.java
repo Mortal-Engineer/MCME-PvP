@@ -40,8 +40,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.mozilla.javascript.commonjs.module.Require;
-import sun.tools.jstat.Literal;
 
 import java.io.File;
 import java.util.*;
