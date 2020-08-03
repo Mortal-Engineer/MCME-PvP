@@ -580,7 +580,7 @@ public class PVPCommand extends CommandDispatcher<Player>{
         new BukkitRunnable() {
             @Override
             public void run() {
-                if (runningGame.getName().equalsIgnoreCase(m.getName())) {
+                if (nextGame.getName().equalsIgnoreCase(m.getName())) {
 
                     ByteArrayDataOutput out = ByteStreams.newDataOutput();
                     out.writeUTF("Message");
