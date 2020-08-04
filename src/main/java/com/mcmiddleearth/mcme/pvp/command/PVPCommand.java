@@ -355,7 +355,10 @@ public class PVPCommand extends CommandDispatcher<Player>{
                 }
                 break;
             case "broadcast":
-                sendBroadcast(source, nextGame);
+                if(nextGame != null)
+                    sendBroadcast(source, nextGame);
+                else
+                    source.sendMessage("Can't send broadcast, next game is null");
                 break;
             case "toggleLock":
                 if(locked){
