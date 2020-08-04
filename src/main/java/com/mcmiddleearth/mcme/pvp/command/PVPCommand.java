@@ -575,28 +575,17 @@ public class PVPCommand extends CommandDispatcher<Player>{
         player.sendPluginMessage(PVPPlugin.getPlugin(), "BungeeCord", out.toByteArray());
     }
     private void sendBroadcast(Player player, Map m) {
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (nextGame.getName().equalsIgnoreCase(m.getName())) {
-
-                    ByteArrayDataOutput out = ByteStreams.newDataOutput();
-                    out.writeUTF("Message");
-                    out.writeUTF("ALL");
-                    out.writeUTF("mcme:event");
-                    out.writeUTF(ChatColor.GRAY + player.getName() + " has started a game\n"
-                            + ChatColor.GRAY + "Map: " + ChatColor.GREEN + m.getTitle() + ChatColor.GRAY + ", Gamemode: " + ChatColor.GREEN + m.getGmType() + "\n"
-                            + ChatColor.GRAY + "Use " + ChatColor.GREEN + "/pvp join" + ChatColor.GRAY + " to join the game\n"
-                            + ChatColor.GRAY + "There are only " + m.getMax() + " slots left\n"
-                            + ChatColor.GREEN + "Do /pvp rules " + removeSpaces(m.getGmType()) + " if you don't know how this gamemode works!");
-                    player.sendPluginMessage(PVPPlugin.getPlugin(), "BungeeCord", out.toByteArray());
-                } else {
-                    cancel();
-                }
-
-            }
-        }.runTaskTimer(PVPPlugin.getPlugin(), 0L, 1200 * PVPPlugin.getMinutes());
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("Message");
+        out.writeUTF("ALL");
+        out.writeUTF(ChatColor.GRAY + player.getName() + " has started a game\n"
+                +ChatColor.GRAY + "Map: " + ChatColor.GREEN + m.getTitle() + ChatColor.GRAY + ", Gamemode: " + ChatColor.GREEN + m.getGmType()+"\n"
+                +ChatColor.GRAY + "Use " + ChatColor.GREEN + "/pvp join" + ChatColor.GRAY + " to join the game\n"
+                +ChatColor.GRAY + "There are only " + m.getMax() + " slots left\n"
+                +ChatColor.GREEN + "Do /pvp rules " + removeSpaces(m.getGmType()) + " if you don't know how this gamemode works!");
+        player.sendPluginMessage(PVPPlugin.getPlugin(), "BungeeCord", out.toByteArray());
     }
+
     public static String removeSpaces(String s){
         String newString = "";
 
