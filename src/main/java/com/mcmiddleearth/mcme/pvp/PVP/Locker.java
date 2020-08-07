@@ -22,6 +22,7 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import com.mcmiddleearth.mcme.pvp.PVPPlugin;
 import com.mcmiddleearth.mcme.pvp.Permissions;
+import com.mcmiddleearth.mcme.pvp.command.PVPCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -45,14 +46,12 @@ import java.util.List;
  */
 public class Locker implements Listener{
     
-    private static volatile boolean locked = true;
-    
     private static String Message = "PvP-server Locked";
 
 
     @EventHandler (priority = EventPriority.HIGHEST)
     public void onServerListPing(ServerListPingEvent e){
-        if(locked){
+        if(PVPCommand.isLocked()){
             e.setMotd(e.getMotd() + "\n" + ChatColor.BLUE + Message);
             e.setMaxPlayers(0);
         }
@@ -62,7 +61,7 @@ public class Locker implements Listener{
     public void onPlayerLogin(PlayerJoinEvent e){
 ///Logger.getGlobal().info("Player login: "  +locked+ " "+e.getPlayer().hasPermission(Permissions.LOCKER.getPermissionNode()));
 //Logger.getGlobal().info("Player allowed: "+(locked && !e.getPlayer().hasPermission(Permissions.LOCKER.getPermissionNode())));
-        if(locked && !e.getPlayer().hasPermission(Permissions.JOIN.getPermissionNode())){
+        if(PVPCommand.isLocked() && !e.getPlayer().hasPermission(Permissions.JOIN.getPermissionNode())){
 ///Logger.getGlobal().info("Player kick! ");
             e.getPlayer().sendMessage(Message);
             new BukkitRunnable() {
