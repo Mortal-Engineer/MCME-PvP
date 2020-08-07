@@ -47,6 +47,7 @@ import org.bukkit.inventory.ItemStack;
  * @author Donovan <dallen@dallen.xyz>
  */
 public class JoinLeaveHandler implements Listener{
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e){
         final Player p = e.getPlayer();
