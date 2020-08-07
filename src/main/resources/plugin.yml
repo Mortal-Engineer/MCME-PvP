@@ -1,0 +1,70 @@
+name: ${project.artifactId}
+main: com.mcmiddleearth.mcme.pvp.PVPPlugin
+version: ${project.version}
+authors: [DonoA, aaldim, lizzehface, meggawatts, Eriol_Eandur, NicoviçTheSixth]
+depend: [WorldEdit,PlaceholderAPI, PluginUtils]
+api-version: 1.15
+
+commands:
+  WorldJump:
+    description: jump worlds
+    usage: /WorldJump <world>
+  World:
+    description: world commands
+    usage: /world <save|load|list> <args>
+  PlugUp:
+    description: Self updates
+    usage: /PlugUp <step>
+  locker:
+    description: Lock commands
+    usage: /locker <some shit>
+  event:
+    description: Get get commands from current event also redirects to current event if only one is enabled
+    usage: /event <sub-command> [args]
+  winter:
+    description: Umbrella for all winter event commands
+    usages: /winter <sub-command> [args]
+  summer:
+    description: Umbrella for all summer event commands
+    usages: /summer <sub-command> [args]
+  pvp:
+    description: PVP commands go to the read-me for more info
+    usage: /pvp <some shit>
+  t:
+    description: Send a message to players on your team
+    usage: /t <message>
+  mapeditor:
+    description: A map editor GUI to help you edit maps more easily
+    usage: /mapeditor <map> <variable> <edit>
+permissions:
+  pvp.join:
+    description: Can join even when server is locked.
+    default: op
+  pvp.gameKick:
+    description: Can kick players from pvp server.
+    default: op
+  pvp.gameCanRun:
+    description: Can run games on pvp server.
+    default: op
+  pvp.mapCreate:
+    description: Can create maps on pvp server.
+    default: op
+  pvp.adminPermission:
+    description: Can do everything with the pvp plugin.
+    default: op
+  pvp.builder:
+    children:
+      pvp.join: true
+  pvp.moderator:
+    children:
+      pvp.gameKick: true
+  pvp.manager:
+    children:
+      pvp.gameCanRun: true
+  pvp.admin:
+    children:
+      pvp.builder: true
+      pvp.mapCreate: true
+      pvp.manager: true
+      pvp.moderator: true
+      pvp.adminPermission: true
