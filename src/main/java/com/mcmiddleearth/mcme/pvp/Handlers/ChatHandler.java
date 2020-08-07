@@ -69,6 +69,8 @@ public class ChatHandler extends PlaceholderHook implements Listener {
                 } else {
                     if(p.hasPermission(Permissions.PVP_ADMIN.getPermissionNode())){
                         return ChatColor.GOLD + "PvP Staff" + " " + p.getName() + ChatColor.RESET + ": " ;
+                    }if(p.hasPermission(Permissions.RUN.getPermissionNode())){
+                        return ChatColor.GOLD + "Manager " + p.getName() + ChatColor.RESET + ": ";
                     }else{
                         return ChatColor.GRAY + "Lobby" + " " + p.getName() + ChatColor.RESET + ": " ;
                     }
