@@ -48,10 +48,10 @@ public abstract class BasePluginGamemode implements com.mcmiddleearth.mcme.pvp.G
 
     @JsonIgnore
     ArrayList<Player> players = new ArrayList<>();
-    
     public enum GameState {
         IDLE, COUNTDOWN, RUNNING
     }
+
     
     private static Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
     
