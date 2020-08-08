@@ -314,7 +314,7 @@ public class PVPCommand extends CommandDispatcher<Player>{
                 GearHandler.giveCustomItem(source, PIPE);
                 break;
             case "stats":
-                PlayerStat ps = PlayerStat.getPlayerStats().get(source.getDisplayName());
+                PlayerStat ps = PlayerStat.getPlayerStats().get(source.getName());
 
                 source.sendMessage(ChatColor.GREEN + "Showing stats for " + source.getDisplayName());
                 source.sendMessage(ChatColor.GRAY + "Kills: " + ps.getKills());
