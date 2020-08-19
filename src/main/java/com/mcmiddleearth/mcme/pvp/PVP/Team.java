@@ -20,6 +20,7 @@ package com.mcmiddleearth.mcme.pvp.PVP;
 
 import com.mcmiddleearth.mcme.pvp.Handlers.BukkitTeamHandler;
 import com.mcmiddleearth.mcme.pvp.Handlers.ChatHandler;
+import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -41,11 +42,13 @@ public class Team {
         private String prefix;
         private ChatColor color;
         private Teams t;
-        private static Team red = new Team("Red", org.bukkit.ChatColor.RED, Teams.RED);
-        private static Team blue = new Team("Blue", org.bukkit.ChatColor.BLUE, Teams.BLUE);
-        private static Team spectator = new Team("Spectator", org.bukkit.ChatColor.GRAY, Teams.SPECTATORS);
-        private static Team survivor = new Team("Survivor", org.bukkit.ChatColor.BLUE, Teams.SURVIVORS);
-        private static Team infected = new Team("Infected", org.bukkit.ChatColor.DARK_RED, Teams.INFECTED);
+        @Getter private static Team red = new Team("Red", org.bukkit.ChatColor.RED, Teams.RED);
+        @Getter private static Team blue = new Team("Blue", org.bukkit.ChatColor.BLUE, Teams.BLUE);
+        @Getter private static Team spectator = new Team("Spectator", org.bukkit.ChatColor.GRAY, Teams.SPECTATORS);
+        @Getter private static Team survivor = new Team("Survivor", org.bukkit.ChatColor.BLUE, Teams.SURVIVORS);
+        @Getter private static Team infected = new Team("Infected", org.bukkit.ChatColor.DARK_RED, Teams.INFECTED);
+        @Getter private static Team runner = new Team("Runner", org.bukkit.ChatColor.BLUE, Teams.RUNNER);
+        @Getter private static Team death = new Team("Death", org.bukkit.ChatColor.BLACK, Teams.DEATH);
         
         public Team(String prefix, ChatColor color, Teams t){
             this.prefix = prefix;
@@ -54,7 +57,7 @@ public class Team {
         }
         
         public enum Teams {
-            RED,BLUE,INFECTED,SURVIVORS,SPECTATORS;
+            RED,BLUE,INFECTED,SURVIVORS,RUNNER,DEATH,SPECTATORS;
         }
         
         public void add(Player p){
@@ -86,6 +89,11 @@ public class Team {
                 case INFECTED:
                     p.sendMessage(color + "You are Infected!");
                     break;
+                case RUNNER:
+                    p.sendMessage(color + "You are a runner, don't stand RUN!");
+                    break;
+                case DEATH:
+                    p.sendMessage(color + "You are Death, kill the runners!");
             }
             
             if(p.getName().length() < 14){
@@ -129,6 +137,10 @@ public class Team {
                 infected.getMembers().remove(p);
                 p.sendMessage("Removed from infected!");
                 p.removePotionEffect(PotionEffectType.SPEED);
+            } else if(runner.getMembers().contains(p)){
+                runner.getMembers().remove(p);
+            } else if(death.getMembers().contains(p)){
+                death.getMembers().remove(p);
             }
             
             if(!p.isDead()){
@@ -158,6 +170,8 @@ public class Team {
         }
         else if(infected.getMembers().contains(p1) && infected.getMembers().contains(p2)){
             return true;
+        } else if(runner.getMembers().contains(p1) && runner.getMembers().contains(p2)){
+            return true;
         }
         else{
             return false;
@@ -175,7 +189,9 @@ public class Team {
         spectator.getMembers().clear();
         survivor.getMembers().clear();
         infected.getMembers().clear();
-        
+        runner.getMembers().clear();
+        death.getMembers().clear();
+
         red.getCapturedPoints().clear();
         blue.getCapturedPoints().clear();
         
@@ -184,6 +200,8 @@ public class Team {
         spectator.getAllMembers().clear();
         survivor.getAllMembers().clear();
         infected.getAllMembers().clear();
+        runner.getAllMembers().clear();
+        death.getAllMembers().clear();
         
     }
 
@@ -197,25 +215,5 @@ public class Team {
 
     public ArrayList<Player> getAllMembers() {
         return allMembers;
-    }
-
-    public static Team getRed() {
-        return red;
-    }
-
-    public static Team getBlue() {
-        return blue;
-    }
-
-    public static Team getSpectator() {
-        return spectator;
-    }
-
-    public static Team getSurvivor() {
-        return survivor;
-    }
-
-    public static Team getInfected() {
-        return infected;
     }
 }

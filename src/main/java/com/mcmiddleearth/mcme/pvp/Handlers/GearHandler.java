@@ -59,7 +59,7 @@ public class GearHandler {
         if(sg == SpecialGear.ONEINTHEQUIVER){
             items = new ItemStack[] {new ItemStack(Material.LEATHER_HELMET), new ItemStack(Material.LEATHER_CHESTPLATE), 
                 new ItemStack(Material.LEATHER_LEGGINGS), new ItemStack(Material.LEATHER_BOOTS),
-                new ItemStack(Material.IRON_AXE), new ItemStack(Material.BOW), new ItemStack(Material.SHIELD)};
+                new ItemStack(Material.IRON_AXE), new ItemStack(Material.BOW)};
         }
         else{
             items = new ItemStack[] {new ItemStack(Material.LEATHER_HELMET), new ItemStack(Material.LEATHER_CHESTPLATE), 
@@ -105,7 +105,8 @@ public class GearHandler {
                     case YELLOW:
                         lam.setColor(DyeColor.YELLOW.getColor());
                         break;
-                    
+                    case BLACK:
+                        lam.setColor(DyeColor.BLACK.getColor());
                 }
                 
                 items[i].setItemMeta(lam);
@@ -158,6 +159,7 @@ public class GearHandler {
         if(sg == SpecialGear.RINGBEARER){
             giveCustomItem(p, CustomItem.RING);
         }
+
         
     }
     
