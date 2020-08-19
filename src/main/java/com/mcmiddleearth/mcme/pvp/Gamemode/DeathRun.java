@@ -245,8 +245,7 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
                             End(map);
                         }
                         if (state == GameState.RUNNING) {
-                            Team.getSpectator().getMembers().add(p);
-                            p.setGameMode(GameMode.SPECTATOR);
+                            Team.getSpectator().add(p);
                         }
                     }
                 }
@@ -295,9 +294,9 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
                 if (Team.getDeath().getMembers().contains(p)) {
                     e.setRespawnLocation(map.getImportantPoints().get("DeathSpawn").toBukkitLoc());
                     GearHandler.giveGear(p, ChatColor.BLACK, SpecialGear.NONE);
-                } else
+                } else {
                     e.setRespawnLocation(map.getSpawn().toBukkitLoc());
-                p.setGameMode(GameMode.SPECTATOR);
+                }
             }
         }
     }
