@@ -8,10 +8,7 @@ import com.mcmiddleearth.mcme.pvp.PVPPlugin;
 import com.mcmiddleearth.mcme.pvp.Util.EventLocation;
 import com.mcmiddleearth.mcme.pvp.command.PVPCommand;
 import com.mcmiddleearth.mcme.pvp.maps.Map;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -239,7 +236,7 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
                     if (!winners.contains(p)) {
                         winners.add(p);
                         for (Player pl: Bukkit.getServer().getOnlinePlayers()) {
-                            p.sendMessage(ChatColor.BLUE + pl.getDisplayName() + "has reached the goal!");
+                            pl.sendMessage(ChatColor.BLUE + p.getDisplayName() + "has reached the goal!");
                         }
                         Points.getScore(ChatColor.BLUE + "Runners:").setScore(Team.getRunner().size() - 1);
                         Team.getRunner().getMembers().remove(p);
@@ -247,8 +244,9 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
                             sendWinMessage();
                             End(map);
                         }
-                        if (state == GameState.RUNNING)
-                            Team.getSpectator().getMembers().add(p);
+                        if (state == GameState.RUNNING) {
+                            Team.getSpectator().add(p);
+                        }
                     }
                 }
             }
@@ -296,10 +294,10 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
                 if (Team.getDeath().getMembers().contains(p)) {
                     e.setRespawnLocation(map.getImportantPoints().get("DeathSpawn").toBukkitLoc());
                     GearHandler.giveGear(p, ChatColor.BLACK, SpecialGear.NONE);
-                } else
+                } else {
                     e.setRespawnLocation(map.getSpawn().toBukkitLoc());
+                }
             }
-            Logger.getLogger("PVP").log(Level.INFO, e.getRespawnLocation().toString());
         }
     }
         @EventHandler
