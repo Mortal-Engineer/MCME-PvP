@@ -89,33 +89,12 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
             }
 
             if (time == 0) {
-                String remainingPlayers = "";
-                int loopnum = 0;
-                for (Player p : winners) {
-                    if (winners.size() > 1 && loopnum == (winners.size() - 1)) {
-
-                        remainingPlayers += (", and " + p.getName());
-                    } else if (winners.size() == 1 || loopnum == 0) {
-                        remainingPlayers += (" " + p.getName());
-                    } else {
-                        remainingPlayers += (", " + p.getName());
-                    }
-
-                    loopnum++;
-                }
-                if (winners.size() == 0)
-                    for (Player p : Bukkit.getOnlinePlayers()) {
-                        p.sendMessage(ChatColor.BLACK + "Game over!");
-                        p.sendMessage(ChatColor.BLACK + "Death wins!");
-                    }
+                if(winners.size()!= 0)
+                    sendWinMessage();
                 else
-                    for (Player p : Bukkit.getOnlinePlayers()) {
-                        p.sendMessage(ChatColor.BLUE + "Game over!");
-                        if (winners.size() == 1)
-                            p.sendMessage(ChatColor.BLUE + remainingPlayers + " wins!");
-                        else
-                            p.sendMessage(ChatColor.BLUE + remainingPlayers + " win!");
-
+                    for(Player p :Bukkit.getOnlinePlayers()){
+                        p.sendMessage(ChatColor.BLACK + "Game over!");
+                        p.sendMessage(ChatColor.BLACK + "Death Wins!");
                     }
                 End(map);
             }
@@ -259,7 +238,17 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
                 if (e.getClickedBlock().getType().equals(Material.BEACON) && Team.getRunner().getMembers().contains(p)) {
                     if (!winners.contains(p)) {
                         winners.add(p);
-                        p.sendMessage("You've reached the goal!!!");
+                        for (Player pl: Bukkit.getServer().getOnlinePlayers()) {
+                            p.sendMessage(ChatColor.BLUE + pl.getDisplayName() + "has reached the goal!");
+                        }
+                        Points.getScore(ChatColor.BLUE + "Runners:").setScore(Team.getRunner().size() - 1);
+                        Team.getRunner().getMembers().remove(p);
+                        if(Team.getRunner().size() == 0){
+                            sendWinMessage();
+                            End(map);
+                        }
+                        if (state == GameState.RUNNING)
+                            Team.getSpectator().getMembers().add(p);
                     }
                 }
             }
@@ -289,29 +278,8 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
                     PlayerStat.addGameLost(Team.Teams.RUNNER);
                     PlayerStat.addGameSpectatedAll();
                     End(map);
-                } else if (Team.getRunner().size() == winners.size()) {
-                    String remainingPlayers = "";
-                    int loopnum = 0;
-                    for (Player pl : winners) {
-                        if (winners.size() > 1 && loopnum == (winners.size() - 1)) {
-
-                            remainingPlayers += (", and " + pl.getName());
-                        } else if (winners.size() == 1 || loopnum == 0) {
-                            remainingPlayers += (" " + pl.getName());
-                        } else {
-                            remainingPlayers += (", " + pl.getName());
-                        }
-
-                        loopnum++;
-                    }
-                    for (Player pl : Bukkit.getOnlinePlayers()) {
-                        pl.sendMessage(ChatColor.BLUE + "Game over!");
-                        if (winners.size() == 1)
-                            pl.sendMessage(ChatColor.BLUE + remainingPlayers + " wins!");
-                        else
-                            pl.sendMessage(ChatColor.BLUE + remainingPlayers + " win!");
-
-                    }
+                } else if (Team.getRunner().size() == 0) {
+                    sendWinMessage();
                     End(map);
                 }
                 if (Team.getDeath().getMembers().contains(p)) {
@@ -368,7 +336,30 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
             }
         }
 
+    public void sendWinMessage(){
+            String remainingPlayers = "";
+            int loopnum = 0;
+            for (Player pl : winners) {
+                if (winners.size() > 1 && loopnum == (winners.size() - 1)) {
 
+                    remainingPlayers += (", and " + pl.getName());
+                } else if (winners.size() == 1 || loopnum == 0) {
+                    remainingPlayers += (" " + pl.getName());
+                } else {
+                    remainingPlayers += (", " + pl.getName());
+                }
+
+                loopnum++;
+            }
+            for (Player pl : Bukkit.getOnlinePlayers()) {
+                pl.sendMessage(ChatColor.BLUE + "Game over!");
+                if (winners.size() == 1)
+                    pl.sendMessage(ChatColor.BLUE + remainingPlayers + " wins!");
+                else
+                    pl.sendMessage(ChatColor.BLUE + remainingPlayers + " win!");
+
+            }
+    }
     @Override
     public ArrayList<String> getNeededPoints() {
         return NeededPoints;
