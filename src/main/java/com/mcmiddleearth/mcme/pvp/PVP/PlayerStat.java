@@ -122,6 +122,16 @@ public class PlayerStat {
                     PlayerStat.getPlayerStats().get(p.getName()).addGameWon();
                 }
                 break;
+            case DEATH:
+                for(Player p : Team.getDeath().getMembers()){
+                    PlayerStat.getPlayerStats().get(p.getName()).addGameWon();
+                }
+                break;
+            case RUNNER:
+                for(Player p : Team.getRunner().getMembers()) {
+                    PlayerStat.getPlayerStats().get(p.getName()).addGameWon();
+                }
+                break;
         }
         
     }
@@ -146,6 +156,16 @@ public class PlayerStat {
                 break;
             case SURVIVORS:
                 for(Player p : Team.getSurvivor().getMembers()){
+                    PlayerStat.getPlayerStats().get(p.getName()).addGameLost();
+                }
+                break;
+            case DEATH:
+                for(Player p : Team.getDeath().getMembers()){
+                    PlayerStat.getPlayerStats().get(p.getName()).addGameLost();
+                }
+                break;
+            case RUNNER:
+                for(Player p : Team.getRunner().getMembers()) {
                     PlayerStat.getPlayerStats().get(p.getName()).addGameLost();
                 }
                 break;

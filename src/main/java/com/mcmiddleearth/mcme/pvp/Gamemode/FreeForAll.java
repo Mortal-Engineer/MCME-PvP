@@ -45,6 +45,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  *
@@ -465,7 +467,7 @@ public class FreeForAll extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGa
             
                 healing.put(e.getPlayer(), System.currentTimeMillis() + 7500);
             }
-            
+            Logger.getLogger("PVP").log(Level.INFO, e.getRespawnLocation().toString());
         }
     }
 
