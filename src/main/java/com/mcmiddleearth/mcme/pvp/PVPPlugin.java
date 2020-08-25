@@ -215,6 +215,7 @@ public class PVPPlugin extends JavaPlugin{
 
     @Override
     public void onDisable(){
+        //todo Add an automatic game end!!!
         for(String mn : Map.maps.keySet()){
             Map m = Map.maps.get(mn);
             m.setCurr(0);

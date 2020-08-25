@@ -25,8 +25,6 @@ import org.bukkit.scoreboard.Objective;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 
 public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGamemode {
     private boolean pvpRegistered = false;
@@ -236,7 +234,7 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
                     if (!winners.contains(p)) {
                         winners.add(p);
                         for (Player pl: Bukkit.getServer().getOnlinePlayers()) {
-                            pl.sendMessage(ChatColor.BLUE + p.getDisplayName() + "has reached the goal!");
+                            pl.sendMessage(ChatColor.BLUE + p.getDisplayName() + " has reached the goal!");
                         }
                         Points.getScore(ChatColor.BLUE + "Runners:").setScore(Team.getRunner().size() - 1);
                         Team.getRunner().getMembers().remove(p);
@@ -277,6 +275,8 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
                     PlayerStat.addGameSpectatedAll();
                     End(map);
                 } else if (Team.getRunner().size() == 0) {
+                    PlayerStat.addGameLost(Team.Teams.DEATH);
+                    PlayerStat.addGameWon(Team.Teams.RUNNER);
                     sendWinMessage();
                     End(map);
                 }
