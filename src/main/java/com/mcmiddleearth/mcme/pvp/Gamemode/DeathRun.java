@@ -8,6 +8,7 @@ import com.mcmiddleearth.mcme.pvp.PVPPlugin;
 import com.mcmiddleearth.mcme.pvp.Util.EventLocation;
 import com.mcmiddleearth.mcme.pvp.command.PVPCommand;
 import com.mcmiddleearth.mcme.pvp.maps.Map;
+import lombok.Getter;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -18,6 +19,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -29,6 +31,7 @@ import java.util.Random;
 public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGamemode {
     private boolean pvpRegistered = false;
 
+    @Getter
     private final ArrayList<String> NeededPoints = new ArrayList<String>(Arrays.asList(new String[]{
             "RunnerSpawn",
             "DeathSpawn",
@@ -84,13 +87,20 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
             }
 
             if (time == 0) {
-                if(winners.size()!= 0)
+                if(winners.size() != 0) {
                     sendWinMessage();
-                else
-                    for(Player p :Bukkit.getOnlinePlayers()){
+                    PlayerStat.addGameWon(Team.Teams.RUNNER);
+                    PlayerStat.addGameLost(Team.Teams.DEATH);
+                }
+                else {
+                    for (Player p : Bukkit.getOnlinePlayers()) {
                         p.sendMessage(ChatColor.BLACK + "Game over!");
                         p.sendMessage(ChatColor.BLACK + "Death Wins!");
                     }
+                    PlayerStat.addGameWon(Team.Teams.DEATH);
+                    PlayerStat.addGameLost(Team.Teams.RUNNER);
+                }
+                PlayerStat.addGameSpectatedAll();
                 End(map);
             }
         }
@@ -127,7 +137,6 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
         int c = 0;
         int death = rand.nextInt(players.size());
         for (Player p : players) {
-
             if (c == death) {
                 Team.getDeath().add(p);
                 p.teleport(m.getImportantPoints().get("DeathSpawn").toBukkitLoc());
@@ -135,7 +144,6 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
                 Team.getRunner().add(p);
                 p.teleport(m.getImportantPoints().get("RunnerSpawn").toBukkitLoc());
             }
-
             c++;
         }
 
@@ -296,6 +304,9 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
                     GearHandler.giveGear(p, ChatColor.BLACK, SpecialGear.NONE);
                 } else {
                     e.setRespawnLocation(map.getSpawn().toBukkitLoc());
+                    e.getPlayer().getInventory().clear();
+                    e.getPlayer().getInventory().setArmorContents(new ItemStack[] {new ItemStack(Material.AIR), new ItemStack(Material.AIR),
+                            new ItemStack(Material.AIR), new ItemStack(Material.AIR)});
                 }
             }
         }
@@ -355,12 +366,7 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
                     pl.sendMessage(ChatColor.BLUE + remainingPlayers + " wins!");
                 else
                     pl.sendMessage(ChatColor.BLUE + remainingPlayers + " win!");
-
             }
-    }
-    @Override
-    public ArrayList<String> getNeededPoints() {
-        return NeededPoints;
     }
 
     @Override

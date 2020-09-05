@@ -12,6 +12,7 @@ This project is once again in development!
 * Keep track of sessions for players so they can be reassigned to the same team on rejoin
 * /pvp assign \<player> \<team> to assign a player to a certain team in a running game
 * pipe smoke texture
+* xxxEvent point to get events on maps (look wether to hardcode or not)
 
 ### Code improvements
 * Simplify the command files so they're easier to read
@@ -23,6 +24,7 @@ This project is once again in development!
 * Brigadier command parser
 * An actual queue for PVP
 * An updated permission system
+* A death run gamemode
 
 Needed commands for wrapper:
 

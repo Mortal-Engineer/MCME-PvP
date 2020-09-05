@@ -215,7 +215,8 @@ public class PVPPlugin extends JavaPlugin{
 
     @Override
     public void onDisable(){
-        //todo Add an automatic game end!!!
+        if(PVPCommand.getRunningGame() != null)
+            PVPCommand.getRunningGame().getGm().End(PVPCommand.getRunningGame());
         for(String mn : Map.maps.keySet()){
             Map m = Map.maps.get(mn);
             m.setCurr(0);
