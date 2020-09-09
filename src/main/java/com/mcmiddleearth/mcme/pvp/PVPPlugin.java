@@ -199,7 +199,6 @@ public class PVPPlugin extends JavaPlugin{
                 System.out.println("Error loading map " + e.getKey());
             }
         }
-        CLog.println(maps);
         com.mcmiddleearth.mcme.pvp.Handlers.BukkitTeamHandler.configureBukkitTeams();
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(PVPPlugin.getPlugin(), new Runnable(){

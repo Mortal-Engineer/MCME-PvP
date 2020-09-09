@@ -147,10 +147,7 @@ public class Map {
         }else{
             gm.getPlayers().remove(p);
         }
-        if(!p.getGameMode().equals(GameMode.SPECTATOR)){
-            Curr--;
-        }
-        
+        Curr = 0;
         try{
             Sign s = (Sign) LobbySign.toBukkitLoc().getBlock().getState();
             s.setLine(2, ChatColor.GREEN + "" + ChatColor.BOLD + "" + Curr+"/"+Max);

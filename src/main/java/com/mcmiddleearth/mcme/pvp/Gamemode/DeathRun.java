@@ -94,8 +94,8 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
                 }
                 else {
                     for (Player p : Bukkit.getOnlinePlayers()) {
-                        p.sendMessage(ChatColor.BLACK + "Game over!");
-                        p.sendMessage(ChatColor.BLACK + "Death Wins!");
+                        p.sendMessage(ChatColor.RED + "Game over!");
+                        p.sendMessage(ChatColor.RED + "Death Wins!");
                     }
                     PlayerStat.addGameWon(Team.Teams.DEATH);
                     PlayerStat.addGameLost(Team.Teams.RUNNER);
@@ -274,8 +274,8 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
                 if (Team.getRunner().size() < 1 && winners.size() == 0) {
 
                     for (Player player : Bukkit.getOnlinePlayers()) {
-                        player.sendMessage(ChatColor.BLACK + "Game over!");
-                        player.sendMessage(ChatColor.BLACK + "Death Wins!");
+                        player.sendMessage(ChatColor.RED + "Game over!");
+                        player.sendMessage(ChatColor.RED + "Death Wins!");
 
                     }
                     PlayerStat.addGameWon(Team.Teams.DEATH);
@@ -320,9 +320,8 @@ public class DeathRun extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGame
                 if(Team.getRunner().size() <= 0){
 
                     for(Player player : Bukkit.getOnlinePlayers()){
-                        player.sendMessage(ChatColor.BLACK + "Game over!");
-                        player.sendMessage(ChatColor.BLACK + "Death Wins!");
-
+                        player.sendMessage(ChatColor.RED + "Game over!");
+                        player.sendMessage(ChatColor.RED + "Death Wins!");
                     }
                     PlayerStat.addGameWon(Team.Teams.DEATH);
                     PlayerStat.addGameLost(Team.Teams.RUNNER);

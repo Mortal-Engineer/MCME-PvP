@@ -395,7 +395,7 @@ public class PVPCommand extends CommandDispatcher<Player>{
                 Map m = Map.maps.get(argument);
                 if(m.getGm().requiresParameter().equals("none"))
                 {
-                    if(nextGame==null) {
+                    if(nextGame == null & runningGame == null) {
                         source.sendMessage("Map: " + m.getTitle() + ", Gamemode: " + m.getGmType());
                         parameter = 0;
                         nextGame = m;
@@ -515,7 +515,7 @@ public class PVPCommand extends CommandDispatcher<Player>{
                     doCommand("createTest", argument1, source);
                 }
                 else{
-                    if(nextGame == null) {
+                    if(nextGame == null && runningGame == null) {
                         source.sendMessage("Map: " + m.getTitle() + ", Gamemode: " + m.getGmType() + ", Parameter: "+ argument2);
                         parameter = Integer.parseInt(argument2);
                         nextGame = m;
@@ -533,7 +533,7 @@ public class PVPCommand extends CommandDispatcher<Player>{
                     doCommand("createGame", argument1, source);
                 }
                 else{
-                    if(nextGame == null) {
+                    if(nextGame == null && runningGame == null) {
                         source.sendMessage("Map: " + n.getTitle() + ", Gamemode: " + n.getGmType() + ", Parameter: "+ argument2);
                         sendBroadcast(source,n);
                         parameter = Integer.parseInt(argument2);
