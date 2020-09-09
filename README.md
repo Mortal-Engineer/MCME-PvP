@@ -6,6 +6,7 @@ This project is once again in development!
 
 ### Bug fixes
 * Team Conquest - apparently it's bugged, but I don't know what specifically
+* Rinbgearer - RB's glowstone helmet stays on during invisibility
 
 ### To be implemented
 * /pvp help - guide for setting up maps and starting games
