@@ -74,7 +74,7 @@ public class PVPPlugin extends JavaPlugin{
     private static Integer minutes_broadcast;
     private CommandDispatcher<Player> commandDispatcher;
     @Getter private static Location Spawn;
-    @Getter private static int countdownTime = 5;
+    @Getter private static int CountdownTime = 5;
     @Getter private static final MessageUtil messageUtil = new MessageUtil();
 
     @Override

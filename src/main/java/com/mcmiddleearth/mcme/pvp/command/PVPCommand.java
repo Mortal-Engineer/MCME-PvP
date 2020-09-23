@@ -109,7 +109,7 @@ public class PVPCommand extends CommandDispatcher<Player>{
                     doCommand("kickPlayer", c.getArgument("player", String.class), c.getSource());
                     return 1;} )))
             .then(LiteralArgumentBuilder.<Player>literal("rules")
-                    .then(RequiredArgumentBuilder.<Player, String>argument("gamemode", new com.mcmiddleearth.mcme.pvp.command.CommandStringArgument("infected", "teamslayer", "teamdeathmatch", "ringbearer", "oneinthequiver", "teamconquest", "deathrun")).executes(c -> {
+                    .then(RequiredArgumentBuilder.<Player, String>argument("gamemode", new com.mcmiddleearth.mcme.pvp.command.CommandStringArgument("infected", "teamslayer", "teamdeathmatch", "ringbearer", "oneinthequiver", "teamconquest", "capturetheflag")).executes(c -> {
                         doCommand("rules", c.getArgument("gamemode", String.class), c.getSource());
                         return 1;} )))
             .then(LiteralArgumentBuilder.<Player>literal("pipe").executes(c -> {
@@ -158,7 +158,7 @@ public class PVPCommand extends CommandDispatcher<Player>{
                             return 1;
                         })))
                 .then(LiteralArgumentBuilder.<Player>literal("gm")
-                    .then(RequiredArgumentBuilder.<Player, String>argument("gm", new CommandStringArgument("FreeForAll", "Infected", "OneInTheQuiver", "Ringbearer", "TeamConquest", "TeamDeathmatch", "TeamSlayer", "DeathRun")).executes(c -> {
+                    .then(RequiredArgumentBuilder.<Player, String>argument("gm", new CommandStringArgument("FreeForAll", "Infected", "OneInTheQuiver", "Ringbearer", "TeamConquest", "TeamDeathmatch", "TeamSlayer", "CaptureTheFlag")).executes(c -> {
                             doCommand("mapEditorGm", c.getArgument("map", String.class), c.getArgument("gm", String.class), c.getSource());
                             return 1;
                         })))
@@ -306,13 +306,13 @@ public class PVPCommand extends CommandDispatcher<Player>{
                     break;
                 }
                 source.setGameMode(GameMode.CREATIVE);
-                source.setGameMode(GameMode.ADVENTURE);
+                source.setGameMode(GameMode.SURVIVAL);
                 break;
             case "pipe":
                 GearHandler.giveCustomItem(source, PIPE);
                 break;
             case "stats":
-                PlayerStat ps = PlayerStat.getPlayerStats().get(source.getName());
+                PlayerStat ps = PlayerStat.getPlayerStats().get(source.getDisplayName());
 
                 source.sendMessage(ChatColor.GREEN + "Showing stats for " + source.getDisplayName());
                 source.sendMessage(ChatColor.GRAY + "Kills: " + ps.getKills());
@@ -474,16 +474,15 @@ public class PVPCommand extends CommandDispatcher<Player>{
                         source.sendMessage(ChatColor.GREEN + "Team Slayer Rules");
                         source.sendMessage(ChatColor.GRAY + "Two teams, and infinite respawns. 1 point per kill. First team to a certain point total wins.");
                         break;
-                    case "deathrun":
-                        source.sendMessage(ChatColor.GREEN + "Death Run Rules");
-                        source.sendMessage(ChatColor.GRAY + "One death, and lots of runners. Runners have to reach the end goal before the time limit or getting killed by death.");
+                    case "capturetheflag":
+                        source.sendMessage(ChatColor.GREEN + "Team Slayer Rules");
+                        source.sendMessage(ChatColor.GRAY + "Two teams, and infinite respawns. 1 point per flag capture. First team to a certain point total wins.");
                 }
                 break;
             case "deleteMap":
                 Map.maps.remove(argument);
-                File f = new File(PVPPlugin.getMapDirectory() + PVPPlugin.getFileSep() + argument);
+                File f = new File(PVPPlugin.getMapDirectory() + PVPPlugin.getFileSep() + "maps" + PVPPlugin.getFileSep() + argument);
                 f.delete();
-                reloadMaplist();
                 source.sendMessage(ChatColor.RED + "Deleted " + argument);
                 break;
             case "spawnShow":
