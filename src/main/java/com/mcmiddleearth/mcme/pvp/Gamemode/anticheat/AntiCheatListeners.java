@@ -20,6 +20,7 @@ package com.mcmiddleearth.mcme.pvp.Gamemode.anticheat;
 
 import com.mcmiddleearth.mcme.pvp.PVP.Team;
 import com.mcmiddleearth.mcme.pvp.command.PVPCommand;
+import com.mcmiddleearth.mcme.pvp.Permissions;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -94,6 +95,7 @@ public class AntiCheatListeners implements Listener{
         
         if(command.equalsIgnoreCase("/effect") || 
                 command.equalsIgnoreCase("/enchant") ||
+                command.equalsIgnoreCase("/i") ||
                 command.equalsIgnoreCase("/execute")){
             cs.sendMessage(ChatColor.RED + "You trying to cheat?!?");
             e.setCancelled(true);
@@ -147,11 +149,7 @@ public class AntiCheatListeners implements Listener{
     public static void onPlayerChat(AsyncPlayerChatEvent e){
         if(PVPCommand.getRunningGame() != null && Team.getSpectator().getMembers().contains(e.getPlayer())){
             
-            if(e.getPlayer().getName().equals("DSESGH") || 
-                    e.getPlayer().getName().equals("Dallen") || 
-                    e.getPlayer().getName().equals("q220") || 
-                    e.getPlayer().getName().equals("Finrod_Amandil") || 
-                    e.getPlayer().getName().equals("DynoDaring")){
+            if(e.getPlayer().hasPermission(Permissions.RUN.getPermissionNode())){
                 return;
             }
             

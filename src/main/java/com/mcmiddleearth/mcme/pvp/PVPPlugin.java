@@ -199,7 +199,6 @@ public class PVPPlugin extends JavaPlugin{
                 System.out.println("Error loading map " + e.getKey());
             }
         }
-        CLog.println(maps);
         com.mcmiddleearth.mcme.pvp.Handlers.BukkitTeamHandler.configureBukkitTeams();
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(PVPPlugin.getPlugin(), new Runnable(){
@@ -215,6 +214,8 @@ public class PVPPlugin extends JavaPlugin{
 
     @Override
     public void onDisable(){
+        if(PVPCommand.getRunningGame() != null)
+            PVPCommand.getRunningGame().getGm().End(PVPCommand.getRunningGame());
         for(String mn : Map.maps.keySet()){
             Map m = Map.maps.get(mn);
             m.setCurr(0);

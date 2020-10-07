@@ -62,6 +62,7 @@ permissions:
     children:
       pvp.gameCanRun: true
       pvp.join: true
+      pvp.moderator: true
   pvp.admin:
     children:
       pvp.builder: true
