@@ -32,7 +32,6 @@ import com.mojang.brigadier.suggestion.Suggestion;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import lombok.Getter;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Server;
@@ -170,7 +169,8 @@ public class PVPPlugin extends JavaPlugin{
         pm.registerEvents(new com.mcmiddleearth.mcme.pvp.Handlers.WeatherHandler(), PVPPlugin.getPlugin());
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         if(getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            PlaceholderAPI.registerPlaceholderHook("mcmePvP", new com.mcmiddleearth.mcme.pvp.Handlers.ChatHandler());
+            //PlaceholderAPI.registerPlaceholderExpansion("mcmePvP", new com.mcmiddleearth.mcme.pvp.Handlers.ChatHandler());
+            new com.mcmiddleearth.mcme.pvp.Handlers.ChatHandler().register();
         } else {
             Logger.getGlobal().warning("PlaceholderAPI not enabled");
         }

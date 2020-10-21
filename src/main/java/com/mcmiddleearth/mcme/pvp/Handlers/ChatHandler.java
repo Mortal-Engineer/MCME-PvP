@@ -19,12 +19,14 @@
 package com.mcmiddleearth.mcme.pvp.Handlers;
 
 import com.mcmiddleearth.mcme.pvp.Permissions;
-import me.clip.placeholderapi.PlaceholderHook;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
@@ -32,7 +34,7 @@ import java.util.HashMap;
  *
  * @author Donovan <dallen@dallen.xyz>
  */
-public class ChatHandler extends PlaceholderHook implements Listener {
+public class ChatHandler extends PlaceholderExpansion implements Listener {
     
     private static HashMap<String, String> playerPrefixes = new HashMap<String, String>();
     
@@ -58,10 +60,11 @@ public class ChatHandler extends PlaceholderHook implements Listener {
     }
     
     @Override
-    public String onPlaceholderRequest(Player p, String identifier) {
-        if(p==null) {
+    public String onRequest(OfflinePlayer player, String identifier) {
+        if(player==null || !player.isOnline()) {
             return "null player";
         }
+        Player p = player.getPlayer();
         switch(identifier) {
             case "prefix":
                 if(playerPrefixes.containsKey(p.getName())) {
@@ -95,5 +98,20 @@ public class ChatHandler extends PlaceholderHook implements Listener {
 
     public static HashMap<String, ChatColor> getPlayerColors() {
         return playerColors;
+    }
+
+    @Override
+    public @NotNull String getIdentifier() {
+        return "mcmepvp";
+    }
+
+    @Override
+    public @NotNull String getAuthor() {
+        return "Eriol_Eandur";
+    }
+
+    @Override
+    public @NotNull String getVersion() {
+        return "1.0.3";
     }
 }
