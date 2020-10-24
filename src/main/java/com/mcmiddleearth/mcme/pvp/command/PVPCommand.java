@@ -105,7 +105,7 @@ public class PVPCommand extends CommandDispatcher<Player>{
                 doCommand("join", c.getSource());
                 return 1;} ))
             .then(LiteralArgumentBuilder.<Player>literal("kick").requires( c -> c.hasPermission(Permissions.KICK.getPermissionNode()))
-                .then(RequiredArgumentBuilder.<Player, String>argument("player", new com.mcmiddleearth.mcme.pvp.command.CommandPlayerArgument(PVPPlugin.getServer())).executes(c -> {
+                .then(RequiredArgumentBuilder.<Player, String>argument("player", new CommandPlayerArgument(PVPPlugin.getServer())).executes(c -> {
                     doCommand("kickPlayer", c.getArgument("player", String.class), c.getSource());
                     return 1;} )))
             .then(LiteralArgumentBuilder.<Player>literal("rules")
@@ -433,7 +433,17 @@ public class PVPCommand extends CommandDispatcher<Player>{
 
                 break;
             case "kickPlayer":
-                Logger.getLogger("logger").log(Level.INFO, "kickPlayer received with " + argument);
+                Player kick = Bukkit.getPlayer(argument);
+                if(nextGame != null)
+                    nextGame.playerLeave(kick);
+                if(runningGame != null)
+                    runningGame.playerLeave(kick);
+                ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                out.writeUTF("ConnectOther");
+                out.writeUTF(argument);
+                out.writeUTF("world");
+                source.sendPluginMessage(PVPPlugin.getPlugin(), "BungeeCord", out.toByteArray());
+                source.sendMessage(ChatColor.GREEN+"Kicked "+argument+" from the PvP server!");
                 break;
             case "rules":
                 switch(argument) {
