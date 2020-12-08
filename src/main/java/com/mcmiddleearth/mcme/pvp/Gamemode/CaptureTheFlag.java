@@ -293,10 +293,16 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
             Player p = (Player) e.getEntity();
             if(p.getInventory().getHelmet().getType() == Material.BLUE_BANNER){
                 GearHandler.giveGear(p, ChatColor.RED, SpecialGear.NONE);
+                for (Location l : pvp.redPoints){
+                    l.getBlock().setType(Material.RED_BANNER);
+                }
             }
 
             if(p.getInventory().getHelmet().getType() == Material.RED_BANNER){
                 GearHandler.giveGear(p, ChatColor.BLUE, SpecialGear.NONE);
+                for (Location l : pvp.bluePoints){
+                    l.getBlock().setType(Material.BLUE_BANNER);
+                }
             }//dying with the banner returns it to spawn
         }
 
@@ -308,45 +314,58 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
             if(e.getClickedBlock().getType()== Material.RED_BANNER){//BLUE claims red banner
                 if(Team.getBlue().getMembers().contains(p)) {
                     p.getInventory().setHelmet(new ItemStack(Material.RED_BANNER));
+                    for (Location l : pvp.redPoints) {
+                        l.getBlock().setType(Material.BEACON);
+                    }
                 }
             }
 
             if(e.getClickedBlock().getType()== Material.BLUE_BANNER){//RED claims blue banner
                 if(Team.getRed().getMembers().contains(p)) {
                     p.getInventory().setHelmet(new ItemStack(Material.BLUE_BANNER));
+                    for (Location l : pvp.bluePoints) {
+                        l.getBlock().setType(Material.BEACON);
+                    }
                 }
             }
             //right clicking the enemy banner puts it on your head
 
-            if(e.getClickedBlock().getType()== Material.BLUE_BANNER){//BLUE SCORES
-                if(Team.getBlue().getMembers().contains(p) && p.getInventory().getHelmet().getType()== Material.RED_BANNER){
+            if(e.getClickedBlock().getType()== Material.BLUE_BANNER) {//BLUE SCORES
+                if (Team.getBlue().getMembers().contains(p) && p.getInventory().getHelmet().getType() == Material.RED_BANNER) {
                     Points.getScore(ChatColor.BLUE + "Blue:").setScore(blueScore + 1);
+                    for (Location l : pvp.redPoints) {
+                        l.getBlock().setType(Material.RED_BANNER);
+                    }
                 }
             }
 
             if(e.getClickedBlock().getType()== Material.RED_BANNER){//RED SCORES
                 if(Team.getBlue().getMembers().contains(p) && p.getInventory().getHelmet().getType() == Material.BLUE_BANNER){
                     Points.getScore(ChatColor.BLUE + "Blue:").setScore(blueScore + 1);
+                    for (Location l : pvp.bluePoints) {
+                        l.getBlock().setType(Material.BLUE_BANNER);
+                    }
                 }
             }
 
             if(Points.getScore(ChatColor.RED + "Red:").getScore() >= target){
 
-                for(Player player : Bukkit.getOnlinePlayers()){
+                for(Player player : Bukkit.getOnlinePlayers()) {
                     player.sendMessage(ChatColor.RED + "Game over!");
                     player.sendMessage(ChatColor.RED + "Red Team Wins!");
+                    }
                 }
                 PlayerStat.addGameWon(Teams.RED);
                 PlayerStat.addGameLost(Teams.BLUE);
                 PlayerStat.addGameSpectatedAll();
                 End(map);
 
-            }
             else if(Points.getScore(ChatColor.BLUE + "Blue:").getScore() >= target){
 
-                for(Player player : Bukkit.getOnlinePlayers()){
+                for(Player player : Bukkit.getOnlinePlayers()) {
                     player.sendMessage(ChatColor.BLUE + "Game over!");
                     player.sendMessage(ChatColor.BLUE + "Blue Team Wins!");
+                    }
                 }
                 PlayerStat.addGameWon(Teams.BLUE);
                 PlayerStat.addGameLost(Teams.RED);
@@ -355,7 +374,6 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
 
             }
 
-        }
 
     @Override
     public ArrayList<String> getNeededPoints() {
