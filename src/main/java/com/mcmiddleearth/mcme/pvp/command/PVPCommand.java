@@ -475,7 +475,7 @@ public class PVPCommand extends CommandDispatcher<Player>{
                         source.sendMessage(ChatColor.GRAY + "Two teams, and infinite respawns. 1 point per kill. First team to a certain point total wins.");
                         break;
                     case "capturetheflag":
-                        source.sendMessage(ChatColor.GREEN + "Team Slayer Rules");
+                        source.sendMessage(ChatColor.GREEN + "Capture the Flag Rules");
                         source.sendMessage(ChatColor.GRAY + "Two teams, and infinite respawns. 1 point per flag capture. First team to a certain point total wins.");
                 }
                 break;
