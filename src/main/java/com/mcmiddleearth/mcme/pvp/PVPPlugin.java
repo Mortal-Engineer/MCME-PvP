@@ -32,7 +32,6 @@ import com.mojang.brigadier.suggestion.Suggestion;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import lombok.Getter;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Server;
@@ -74,7 +73,7 @@ public class PVPPlugin extends JavaPlugin{
     private static Integer minutes_broadcast;
     private CommandDispatcher<Player> commandDispatcher;
     @Getter private static Location Spawn;
-    @Getter private static int CountdownTime = 5;
+    @Getter private static int countdownTime = 5;
     @Getter private static final MessageUtil messageUtil = new MessageUtil();
 
     @Override
@@ -170,7 +169,8 @@ public class PVPPlugin extends JavaPlugin{
         pm.registerEvents(new com.mcmiddleearth.mcme.pvp.Handlers.WeatherHandler(), PVPPlugin.getPlugin());
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
         if(getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-            PlaceholderAPI.registerPlaceholderHook("mcmePvP", new com.mcmiddleearth.mcme.pvp.Handlers.ChatHandler());
+            //PlaceholderAPI.registerPlaceholderExpansion("mcmePvP", new com.mcmiddleearth.mcme.pvp.Handlers.ChatHandler());
+            new com.mcmiddleearth.mcme.pvp.Handlers.ChatHandler().register();
         } else {
             Logger.getGlobal().warning("PlaceholderAPI not enabled");
         }
@@ -199,7 +199,6 @@ public class PVPPlugin extends JavaPlugin{
                 System.out.println("Error loading map " + e.getKey());
             }
         }
-        CLog.println(maps);
         com.mcmiddleearth.mcme.pvp.Handlers.BukkitTeamHandler.configureBukkitTeams();
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(PVPPlugin.getPlugin(), new Runnable(){
@@ -215,6 +214,8 @@ public class PVPPlugin extends JavaPlugin{
 
     @Override
     public void onDisable(){
+        if(PVPCommand.getRunningGame() != null)
+            PVPCommand.getRunningGame().getGm().End(PVPCommand.getRunningGame());
         for(String mn : Map.maps.keySet()){
             Map m = Map.maps.get(mn);
             m.setCurr(0);

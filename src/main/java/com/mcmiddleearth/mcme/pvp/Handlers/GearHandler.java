@@ -151,7 +151,6 @@ public class GearHandler {
         
         p.getInventory().addItem(items[4]);
         p.getInventory().addItem(items[5]);
-        p.getInventory().setItemInOffHand(items[6]);
         
         ItemStack Arrows = new ItemStack(Material.ARROW, 1);
         p.getInventory().addItem(Arrows);
