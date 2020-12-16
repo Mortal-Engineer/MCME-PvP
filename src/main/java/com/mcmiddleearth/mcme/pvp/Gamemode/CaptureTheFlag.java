@@ -360,7 +360,7 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
                 PlayerStat.addGameSpectatedAll();
                 End(map);
 
-            else if(Points.getScore(ChatColor.BLUE + "Blue:").getScore() >= target){
+                if(Points.getScore(ChatColor.BLUE + "Blue:").getScore() >= target){
 
                 for(Player player : Bukkit.getOnlinePlayers()) {
                     player.sendMessage(ChatColor.BLUE + "Game over!");
