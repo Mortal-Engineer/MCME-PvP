@@ -257,16 +257,17 @@ public class GamemodeTemplate extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePl
 
             if(state == GameState.RUNNING){
                 if(Team.getRed().getMembers().contains(e.getPlayer())){
-                            e.setRespawnLocation(map.getImportantPoints().get("RedSpawn1").toBukkitLoc().add(0, 2, 0));
-                    }
+
+                    e.setRespawnLocation(map.getImportantPoints().get("RedSpawn1").toBukkitLoc().add(0, 2, 0));
                 }
-                if(Team.getBlue().getMembers().contains(e.getPlayer())){
-                            e.setRespawnLocation(map.getImportantPoints().get("BlueSpawn1").toBukkitLoc().add(0, 2, 0));
-                    }
-                }
-                //handles the respawning of players. If you have multiple spawns, do a random int and start a switch/case loop to cycle through different spawns
-        //also any other logic for respawning could go here, but usually you should have it under player death.
             }
+            if(Team.getBlue().getMembers().contains(e.getPlayer())){
+                e.setRespawnLocation(map.getImportantPoints().get("BlueSpawn1").toBukkitLoc().add(0, 2, 0));
+            }
+        }
+        //handles the respawning of players. If you have multiple spawns, do a random int and start a switch/case loop to cycle through different spawns
+        //also any other logic for respawning could go here, but usually you should have it under player death.
+    }
 
     @Override
     public ArrayList<String> getNeededPoints() {

@@ -636,4 +636,5 @@ public class PVPCommand extends CommandDispatcher<Player>{
         CommandNewMapArgument.UpdateOptions();
         CommandMapArgument.UpdateOptions();
     }
+
 }
