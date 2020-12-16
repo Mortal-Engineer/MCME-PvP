@@ -109,7 +109,7 @@ public class PVPCommand extends CommandDispatcher<Player>{
                     doCommand("kickPlayer", c.getArgument("player", String.class), c.getSource());
                     return 1;} )))
             .then(LiteralArgumentBuilder.<Player>literal("rules")
-                    .then(RequiredArgumentBuilder.<Player, String>argument("gamemode", new CommandStringArgument("infected", "teamslayer", "teamdeathmatch", "ringbearer", "oneinthequiver", "teamconquest", "deathrun")).executes(c -> {
+                    .then(RequiredArgumentBuilder.<Player, String>argument("gamemode", new CommandStringArgument("infected", "teamslayer", "teamdeathmatch", "ringbearer", "oneinthequiver", "teamconquest", "deathrun", "capturetheflag")).executes(c -> {
                         doCommand("rules", c.getArgument("gamemode", String.class), c.getSource());
                         return 1;} )))
             .then(LiteralArgumentBuilder.<Player>literal("pipe").executes(c -> {
@@ -477,6 +477,9 @@ public class PVPCommand extends CommandDispatcher<Player>{
                     case "deathrun":
                         source.sendMessage(ChatColor.GREEN + "Death Run Rules");
                         source.sendMessage(ChatColor.GRAY + "One death, and lots of runners. Runners have to reach the end goal before the time limit or getting killed by death.");
+                    case "capturetheflag":
+                        source.sendMessage(ChatColor.GREEN + "Capture the Flag Rules");
+                        source.sendMessage(ChatColor.GRAY + "Capture the enemy flag and escort it to your base while protecting your own");
                 }
                 break;
             case "deleteMap":
