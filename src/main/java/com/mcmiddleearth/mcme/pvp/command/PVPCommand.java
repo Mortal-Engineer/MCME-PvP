@@ -105,11 +105,11 @@ public class PVPCommand extends CommandDispatcher<Player>{
                 doCommand("join", c.getSource());
                 return 1;} ))
             .then(LiteralArgumentBuilder.<Player>literal("kick").requires( c -> c.hasPermission(Permissions.KICK.getPermissionNode()))
-                .then(RequiredArgumentBuilder.<Player, String>argument("player", new CommandPlayerArgument(PVPPlugin.getServer())).executes(c -> {
+                .then(RequiredArgumentBuilder.<Player, String>argument("player", new com.mcmiddleearth.mcme.pvp.command.CommandPlayerArgument(PVPPlugin.getServer())).executes(c -> {
                     doCommand("kickPlayer", c.getArgument("player", String.class), c.getSource());
                     return 1;} )))
             .then(LiteralArgumentBuilder.<Player>literal("rules")
-                    .then(RequiredArgumentBuilder.<Player, String>argument("gamemode", new CommandStringArgument("infected", "teamslayer", "teamdeathmatch", "ringbearer", "oneinthequiver", "teamconquest", "deathrun")).executes(c -> {
+                    .then(RequiredArgumentBuilder.<Player, String>argument("gamemode", new CommandStringArgument("infected", "teamslayer", "teamdeathmatch", "ringbearer", "oneinthequiver", "teamconquest", "deathrun", "capturetheflag")).executes(c -> {
                         doCommand("rules", c.getArgument("gamemode", String.class), c.getSource());
                         return 1;} )))
             .then(LiteralArgumentBuilder.<Player>literal("pipe").executes(c -> {
@@ -433,17 +433,7 @@ public class PVPCommand extends CommandDispatcher<Player>{
 
                 break;
             case "kickPlayer":
-                Player kick = Bukkit.getPlayer(argument);
-                if(nextGame != null)
-                    nextGame.playerLeave(kick);
-                if(runningGame != null)
-                    runningGame.playerLeave(kick);
-                ByteArrayDataOutput out = ByteStreams.newDataOutput();
-                out.writeUTF("ConnectOther");
-                out.writeUTF(argument);
-                out.writeUTF("world");
-                source.sendPluginMessage(PVPPlugin.getPlugin(), "BungeeCord", out.toByteArray());
-                source.sendMessage(ChatColor.GREEN+"Kicked "+argument+" from the PvP server!");
+                Logger.getLogger("logger").log(Level.INFO, "kickPlayer received with " + argument);
                 break;
             case "rules":
                 switch(argument) {
@@ -487,6 +477,9 @@ public class PVPCommand extends CommandDispatcher<Player>{
                     case "deathrun":
                         source.sendMessage(ChatColor.GREEN + "Death Run Rules");
                         source.sendMessage(ChatColor.GRAY + "One death, and lots of runners. Runners have to reach the end goal before the time limit or getting killed by death.");
+                    case "capturetheflag":
+                        source.sendMessage(ChatColor.GREEN + "Capture the Flag Rules");
+                        source.sendMessage(ChatColor.GRAY + "Capture the enemy flag and escort it to your base while protecting your own");
                 }
                 break;
             case "deleteMap":
@@ -643,4 +636,5 @@ public class PVPCommand extends CommandDispatcher<Player>{
         CommandNewMapArgument.UpdateOptions();
         CommandMapArgument.UpdateOptions();
     }
+
 }
