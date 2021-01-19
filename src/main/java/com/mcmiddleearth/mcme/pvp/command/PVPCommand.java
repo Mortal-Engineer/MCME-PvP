@@ -158,7 +158,7 @@ public class PVPCommand extends CommandDispatcher<Player>{
                             return 1;
                         })))
                 .then(LiteralArgumentBuilder.<Player>literal("gm")
-                    .then(RequiredArgumentBuilder.<Player, String>argument("gm", new CommandStringArgument("FreeForAll", "Infected", "OneInTheQuiver", "Ringbearer", "TeamConquest", "TeamDeathmatch", "TeamSlayer", "DeathRun")).executes(c -> {
+                    .then(RequiredArgumentBuilder.<Player, String>argument("gm", new CommandStringArgument("FreeForAll", "Infected", "OneInTheQuiver", "Ringbearer", "TeamConquest", "TeamDeathmatch", "TeamSlayer", "DeathRun", "CaptureTheFlag")).executes(c -> {
                             doCommand("mapEditorGm", c.getArgument("map", String.class), c.getArgument("gm", String.class), c.getSource());
                             return 1;
                         })))
