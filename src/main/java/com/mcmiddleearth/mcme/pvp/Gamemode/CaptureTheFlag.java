@@ -110,14 +110,9 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
             }
         }//players that didn't join become spectators
 
-        for (Location l : pvp.bluePoints){
+        for (Location l : m.getImportantPoints()){
             l.getBlock().setType(Material.BLUE_BANNER);
         }
-
-        for (Location l : pvp.redPoints){
-            l.getBlock().setType(Material.RED_BANNER);
-        }
-
 
             Bukkit.getScheduler().scheduleSyncRepeatingTask(PVPPlugin.getPlugin(), new Runnable(){
             @Override
