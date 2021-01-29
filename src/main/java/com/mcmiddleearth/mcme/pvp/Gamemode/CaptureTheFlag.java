@@ -110,14 +110,9 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
             }
         }//players that didn't join become spectators
 
-        for (Location l : pvp.bluePoints){
+        for (Location l : m.getImportantPoints()){
             l.getBlock().setType(Material.BLUE_BANNER);
         }
-
-        for (Location l : pvp.redPoints){
-            l.getBlock().setType(Material.RED_BANNER);
-        }
-
 
             Bukkit.getScheduler().scheduleSyncRepeatingTask(PVPPlugin.getPlugin(), new Runnable(){
             @Override
@@ -307,52 +302,59 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
         }
 
         @EventHandler
-        public void onPlayerRightClick(PlayerInteractEvent e){
-            int redScore = Points.getScore(ChatColor.RED + "Red:").getScore();
-            int blueScore = Points.getScore(ChatColor.BLUE + "Blue:").getScore();
-            Player p = (Player) e.getPlayer();
-            if(e.getClickedBlock().getType()== Material.RED_BANNER){//BLUE claims red banner
-                if(Team.getBlue().getMembers().contains(p)) {
-                    p.getInventory().setHelmet(new ItemStack(Material.RED_BANNER));
-                    for (Location l : pvp.redPoints) {
-                        l.getBlock().setType(Material.BEACON);
+        public void onPlayerInteract(PlayerInteractEvent e){
+            if (state == GameState.RUNNING && players.contains(e.getPlayer()) &&
+                    e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+                int redScore = Points.getScore(ChatColor.RED + "Red:").getScore();
+                int blueScore = Points.getScore(ChatColor.BLUE + "Blue:").getScore();
+                Player p = (Player) e.getPlayer();
+
+                if (e.getClickedBlock().getType().equals(Material.BEACON)) {
+                    e.setUseInteractedBlock(Event.Result.DENY);
+                }
+
+                if (e.getClickedBlock().getType() == Material.RED_BANNER) {//BLUE claims red banner
+                    if (Team.getBlue().getMembers().contains(p)) {
+                        p.getInventory().setHelmet(new ItemStack(Material.RED_BANNER));
+                        for (Location l : pvp.redPoints) {
+                            l.getBlock().setType(Material.BEACON);
+                        }
                     }
                 }
-            }
 
-            if(e.getClickedBlock().getType()== Material.BLUE_BANNER){//RED claims blue banner
-                if(Team.getRed().getMembers().contains(p)) {
-                    p.getInventory().setHelmet(new ItemStack(Material.BLUE_BANNER));
-                    for (Location l : pvp.bluePoints) {
-                        l.getBlock().setType(Material.BEACON);
+                if (e.getClickedBlock().getType() == Material.BLUE_BANNER) {//RED claims blue banner
+                    if (Team.getRed().getMembers().contains(p)) {
+                        p.getInventory().setHelmet(new ItemStack(Material.BLUE_BANNER));
+                        for (Location l : pvp.bluePoints) {
+                            l.getBlock().setType(Material.BEACON);
+                        }
                     }
                 }
-            }
-            //right clicking the enemy banner puts it on your head
+                //right clicking the enemy banner puts it on your head
 
-            if(e.getClickedBlock().getType()== Material.BLUE_BANNER) {//BLUE SCORES
-                if (Team.getBlue().getMembers().contains(p) && p.getInventory().getHelmet().getType() == Material.RED_BANNER) {
-                    Points.getScore(ChatColor.BLUE + "Blue:").setScore(blueScore + 1);
-                    for (Location l : pvp.redPoints) {
-                        l.getBlock().setType(Material.RED_BANNER);
+                if (e.getClickedBlock().getType() == Material.BLUE_BANNER) {//BLUE SCORES
+                    if (Team.getBlue().getMembers().contains(p) && p.getInventory().getHelmet().getType() == Material.RED_BANNER) {
+                        Points.getScore(ChatColor.BLUE + "Blue:").setScore(blueScore + 1);
+                        for (Location l : pvp.redPoints) {
+                            l.getBlock().setType(Material.RED_BANNER);
+                        }
                     }
                 }
-            }
 
-            if(e.getClickedBlock().getType()== Material.RED_BANNER){//RED SCORES
-                if(Team.getBlue().getMembers().contains(p) && p.getInventory().getHelmet().getType() == Material.BLUE_BANNER){
-                    Points.getScore(ChatColor.BLUE + "Blue:").setScore(blueScore + 1);
-                    for (Location l : pvp.bluePoints) {
-                        l.getBlock().setType(Material.BLUE_BANNER);
+                if (e.getClickedBlock().getType() == Material.RED_BANNER) {//RED SCORES
+                    if (Team.getBlue().getMembers().contains(p) && p.getInventory().getHelmet().getType() == Material.BLUE_BANNER) {
+                        Points.getScore(ChatColor.BLUE + "Blue:").setScore(blueScore + 1);
+                        for (Location l : pvp.bluePoints) {
+                            l.getBlock().setType(Material.BLUE_BANNER);
+                        }
                     }
                 }
-            }
 
-            if(Points.getScore(ChatColor.RED + "Red:").getScore() >= target){
+                if (Points.getScore(ChatColor.RED + "Red:").getScore() >= target) {
 
-                for(Player player : Bukkit.getOnlinePlayers()) {
-                    player.sendMessage(ChatColor.RED + "Game over!");
-                    player.sendMessage(ChatColor.RED + "Red Team Wins!");
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        player.sendMessage(ChatColor.RED + "Game over!");
+                        player.sendMessage(ChatColor.RED + "Red Team Wins!");
                     }
                 }
                 PlayerStat.addGameWon(Teams.RED);
@@ -360,17 +362,18 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
                 PlayerStat.addGameSpectatedAll();
                 End(map);
 
-                if(Points.getScore(ChatColor.BLUE + "Blue:").getScore() >= target){
+                if (Points.getScore(ChatColor.BLUE + "Blue:").getScore() >= target) {
 
-                for(Player player : Bukkit.getOnlinePlayers()) {
-                    player.sendMessage(ChatColor.BLUE + "Game over!");
-                    player.sendMessage(ChatColor.BLUE + "Blue Team Wins!");
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        player.sendMessage(ChatColor.BLUE + "Game over!");
+                        player.sendMessage(ChatColor.BLUE + "Blue Team Wins!");
                     }
                 }
                 PlayerStat.addGameWon(Teams.BLUE);
                 PlayerStat.addGameLost(Teams.RED);
                 PlayerStat.addGameSpectatedAll();
                 End(map);
+            }
 
             }
 
