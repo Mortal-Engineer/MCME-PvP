@@ -114,7 +114,7 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
 
         m.getImportantPoints().get("RedSpawn1").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.RED_BANNER);
 
-        m.getImportantPoints().get("BleuSpawn1").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.BLUE_BANNER);
+        m.getImportantPoints().get("BlueSpawn1").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.BLUE_BANNER);
 
             Bukkit.getScheduler().scheduleSyncRepeatingTask(PVPPlugin.getPlugin(), new Runnable(){
             @Override
