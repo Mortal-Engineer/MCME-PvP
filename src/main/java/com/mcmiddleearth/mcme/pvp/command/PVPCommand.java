@@ -479,7 +479,7 @@ public class PVPCommand extends CommandDispatcher<Player>{
                         source.sendMessage(ChatColor.GRAY + "One death, and lots of runners. Runners have to reach the end goal before the time limit or getting killed by death.");
                     case "capturetheflag":
                         source.sendMessage(ChatColor.GREEN + "Capture the Flag Rules");
-                        source.sendMessage(ChatColor.GRAY + "Capture the enemy flag and escort it to your base while protecting your own");
+                        source.sendMessage(ChatColor.GRAY + "Capture the enemy flag(banner), by right clicking it, and escort it to your base beacon while protecting your own. To capture the enemy flag, right click on it, it will be placed on your head, then with it on your head right click your spawn, and you score 1 point.");
                 }
                 break;
             case "deleteMap":
