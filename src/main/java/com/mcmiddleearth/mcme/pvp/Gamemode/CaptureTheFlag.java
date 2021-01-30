@@ -15,8 +15,10 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -110,9 +112,9 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
             }
         }//players that didn't join become spectators
 
-        for (Location l : m.getImportantPoints()){
-            l.getBlock().setType(Material.BLUE_BANNER);
-        }
+        m.getImportantPoints().get("RedSpawn1").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.RED_BANNER);
+
+        m.getImportantPoints().get("BleuSpawn1").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.BLUE_BANNER);
 
             Bukkit.getScheduler().scheduleSyncRepeatingTask(PVPPlugin.getPlugin(), new Runnable(){
             @Override
@@ -164,6 +166,10 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
 
     public void End(Map m){
         state = GameState.IDLE;
+
+        m.getImportantPoints().get("RedSpawn1").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.AIR);
+
+        m.getImportantPoints().get("BleuSpawn1").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.AIR);
 
         getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
         m.playerLeaveAll();
