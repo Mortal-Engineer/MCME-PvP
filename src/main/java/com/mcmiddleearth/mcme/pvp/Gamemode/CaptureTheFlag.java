@@ -30,26 +30,15 @@ import org.bukkit.scoreboard.Objective;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGamemode {
-
-    /*
-    This is a template to be used for future PVP gamemode development.
-    Make sure to add appropriate references in PVPPlugin and PVPCommands after finishing your gamemode.
-     */
-
-    //for this example teams are Red and Blue, but feel free to create your own team names for different gamemodes
 
     private int target;//points or time or other condition needed to end the game
 
     private boolean pvpRegistered = false;
 
     private final ArrayList<String> NeededPoints = new ArrayList<>(Arrays.asList("RedSpawn1",
-            "BlueSpawn1"));//spawns, write in this template
-    //for adding more spawns, follow the same template "RedSpawn3"e.g.
-    //After that, wherever you use them make a switch/case loop and cycle through all the spawns
+            "BlueSpawn1"));
 
     private GameState state;
 
@@ -62,9 +51,6 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
     private Gamepvp pvp;
 
     private boolean midgameJoin = true;
-
-    //setting variables for later use
-    //also map/gamemode specific variables are set here
 
     public CaptureTheFlag(){
         state = GameState.IDLE;
@@ -83,7 +69,7 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
                 p.sendMessage(ChatColor.RED + "Game cannot start! Not all needed points have been added!");
             }
             End(m);
-        }//if not all points are set this error pops up
+        }
 
         if(!pvpRegistered){
             pvp = new Gamepvp();
@@ -95,13 +81,12 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
             if (Team.getRed().size() <= Team.getBlue().size()) {
                 Team.getRed().add(p);
                 p.teleport(m.getImportantPoints().get("RedSpawn1").toBukkitLoc().add(0, 2, 0));
-            }//case goes from 1 to x,where x is the number of spawns
-            //cycles through different spawn points
+            }
 
             else if (Team.getBlue().size() < Team.getRed().size()) {
                 Team.getBlue().add(p);
                 p.teleport(m.getImportantPoints().get("BlueSpawn1").toBukkitLoc().add(0, 2, 0));
-            }//case goes from 1 to x,where x is the number of spawns
+            }
         }
 
         for(Player player : Bukkit.getServer().getOnlinePlayers()){
@@ -242,9 +227,6 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
     }
 
     private class Gamepvp implements Listener{
-        /*
-        This is where the logic of the game goes. This example below is Team Slayer, but put your own work in
-         */
 
         private ArrayList<Location> bluePoints = new ArrayList<>();
         private ArrayList<Location> redPoints = new ArrayList<>();
@@ -305,8 +287,6 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
                 e.setRespawnLocation(map.getImportantPoints().get("BlueSpawn1").toBukkitLoc().add(0, 2, 0));
             }
         }
-        //handles the respawning of players. If you have multiple spawns, do a random int and start a switch/case loop to cycle through different spawns
-        //also any other logic for respawning could go here, but usually you should have it under player death.
 
         @EventHandler
         public void onPlayerDeath(PlayerDeathEvent e){
