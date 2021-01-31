@@ -319,7 +319,7 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
                         Points.getScore(ChatColor.BLUE + "Blue:").setScore(blueScore + 1);
                         map.getImportantPoints().get("RedSpawn1").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.RED_BANNER);
                         for(Player player : Bukkit.getOnlinePlayers()){
-                            player.sendMessage(e.getPlayer().getName() + " has captured the Red flag!");
+                            player.sendMessage(ChatColor.BLUE + e.getPlayer().getName() + " has captured the Red flag!");
                         }
                     }
 
@@ -328,7 +328,7 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
                         Points.getScore(ChatColor.RED + "Red:").setScore(redScore + 1);
                         map.getImportantPoints().get("BlueSpawn1").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.BLUE_BANNER);
                         for (Player player : Bukkit.getOnlinePlayers()) {
-                            player.sendMessage(e.getPlayer().getName() + " has captured the Blue flag!");
+                            player.sendMessage(ChatColor.RED + e.getPlayer().getName() + " has captured the Blue flag!");
                         }
                     }
 
@@ -339,9 +339,9 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
                         p.getInventory().setHelmet(new ItemStack(Material.RED_BANNER));
                         map.getImportantPoints().get("RedSpawn1").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.AIR);
                         for(Player player : Bukkit.getOnlinePlayers()){
-                            player.sendMessage(e.getPlayer().getName() + " has claim the Red flag!");
+                            player.sendMessage(ChatColor.BLUE + e.getPlayer().getName() + " has claimed the Red flag!");
                         }
-                        p.sendMessage("You have the enemy flag! Right click on your spawn beacon to capture it and score!");
+                        p.sendMessage(ChatColor.BLUE + "You have the enemy flag! Right click on your spawn beacon to capture it and score!");
                     }
                 }
 
@@ -350,9 +350,9 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
                         p.getInventory().setHelmet(new ItemStack(Material.BLUE_BANNER));
                         map.getImportantPoints().get("BlueSpawn1").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.AIR);
                         for(Player player : Bukkit.getOnlinePlayers()){
-                            player.sendMessage(e.getPlayer().getName() + " has claim the Blue flag!");
+                            player.sendMessage(ChatColor.RED + e.getPlayer().getName() + " has claimed the Blue flag!");
                         }
-                        p.sendMessage("You have the enemy flag! Right click on your spawn beacon to capture it and score!");
+                        p.sendMessage(ChatColor.RED + "You have the enemy flag! Right click on your spawn beacon to capture it and score!");
                     }
                 }
                 //right clicking the enemy banner puts it on your head
@@ -363,7 +363,7 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
                         Points.getScore(ChatColor.BLUE + "Blue:").setScore(blueScore + 1);
                         map.getImportantPoints().get("RedSpawn1").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.RED_BANNER);
                         for(Player player : Bukkit.getOnlinePlayers()){
-                            player.sendMessage(e.getPlayer().getName() + " has captured the Red flag!");
+                            player.sendMessage(ChatColor.BLUE + e.getPlayer().getName() + " has captured the Red flag!");
                         }
                     }
                 }
@@ -374,7 +374,7 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
                         Points.getScore(ChatColor.RED + "Red:").setScore(redScore + 1);
                         map.getImportantPoints().get("BlueSpawn1").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.BLUE_BANNER);
                         for(Player player : Bukkit.getOnlinePlayers()){
-                            player.sendMessage(e.getPlayer().getName() + " has captured the Blue flag!");
+                            player.sendMessage(ChatColor.RED + e.getPlayer().getName() + " has captured the Blue flag!");
                         }
                     }
                 }
