@@ -67,7 +67,7 @@ public class AllGameHandlers implements Listener{
             if(PVPCommand.getRunningGame().getGm().getPlayers().contains(e.getPlayer())){
                 Map m = PVPCommand.getRunningGame();
                 if(m != null){
-                    if(m.getName().contains("BOK") || m.getName().contains("WG") || m.getName().contains("MGG")){
+                    if(m.getFbt()){
                         e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 2));
                     }
                     if(m.getName().contains("HD")){

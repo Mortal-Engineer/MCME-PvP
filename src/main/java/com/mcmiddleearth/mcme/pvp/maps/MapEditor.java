@@ -248,4 +248,11 @@ public class MapEditor{
         }
         message.send(p);
     }
+
+    public static void BrightnessSet(String map, String fbt, Player p){
+        Map m = Map.maps.get(map);
+        if(fbt=="true"){
+            m.setFbt(true);
+        }
+    }
 }

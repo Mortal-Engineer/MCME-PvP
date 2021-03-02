@@ -226,7 +226,7 @@ public class PVPCommand extends CommandDispatcher<Player>{
                 if(runningGame!=null) {
                     Map m = PVPCommand.getRunningGame();
                     if(m != null) {
-                        if (m.getName().contains("BOK") || m.getName().contains("WG") || m.getName().contains("MGG")) {
+                        if (m.getFbt()) {
                             source.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 2));
                         }
                     }
@@ -244,6 +244,12 @@ public class PVPCommand extends CommandDispatcher<Player>{
                     nextGame.getGm().Start(nextGame, parameter);
                     runningGame = nextGame;
                     nextGame = null;
+                    Map m = getNextGame();
+                    if(m.getFbt()){
+                        for(Player e : Bukkit.getOnlinePlayers()) {
+                            Objects.requireNonNull(e.getPlayer()).addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 2));
+                        }
+                    }
                 }
                 else{
                     source.sendMessage(ChatColor.RED + "Can't start! There's already a game running!");
