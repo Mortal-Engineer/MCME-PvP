@@ -27,6 +27,8 @@ import com.mcmiddleearth.mcme.pvp.Util.DBmanager;
 import com.sk89q.worldedit.math.BlockVector3;
 import java.io.File;
 import java.util.HashMap;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -41,6 +43,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.world.WorldSaveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.*;
 
 /**
  *
@@ -63,6 +66,7 @@ public class AllGameHandlers implements Listener{
         if(PVPCommand.getRunningGame() != null){
             if(PVPCommand.getRunningGame().getGm().getPlayers().contains(e.getPlayer())){
                 Map m = PVPCommand.getRunningGame();
+                e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 10000, 2));
                 if(m != null){
                     if(m.getName().contains("HD")){
                         if(e.getPlayer().getInventory().contains(new ItemStack(Material.TNT))){

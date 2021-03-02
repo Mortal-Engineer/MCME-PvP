@@ -38,6 +38,8 @@ import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.io.File;
 import java.util.*;
@@ -67,6 +69,13 @@ public class PVPCommand extends CommandDispatcher<Player>{
         PVPPlugin = PVPPlugin1;
         reloadMaplist();
         register(LiteralArgumentBuilder.<Player>literal("pvp")
+                .then(LiteralArgumentBuilder.<Player>literal("fbt")
+                .executes(
+                        c->{
+                            doCommand("fbt", (Player) c.getSource());
+                            return 1;
+                        }
+                ))
             .then(LiteralArgumentBuilder.<Player>literal("map")
                 .then(LiteralArgumentBuilder.<Player>literal("list").executes(c -> {
                     doCommand("mapList", c.getSource());
@@ -213,6 +222,8 @@ public class PVPCommand extends CommandDispatcher<Player>{
 
     private void doCommand(String action, Player source) {
         switch (action) {
+            case "fbt":
+                source.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 10000, 2));
             case "mapList":
                 for(String m: mapNames)
                     source.sendMessage(ChatColor.GREEN + maps.get(m).getName() + ChatColor.WHITE + " | " + ChatColor.BLUE + maps.get(m).getTitle());
