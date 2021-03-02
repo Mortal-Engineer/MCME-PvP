@@ -223,7 +223,14 @@ public class PVPCommand extends CommandDispatcher<Player>{
     private void doCommand(String action, Player source) {
         switch (action) {
             case "fbt":
-                source.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 10000, 2));
+                if(runningGame!=null) {
+                    Map m = PVPCommand.getRunningGame();
+                    if(m != null) {
+                        if (m.getName().contains("BOK") || m.getName().contains("WG") || m.getName().contains("MGG")) {
+                            source.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 2));
+                        }
+                    }
+                }
             case "mapList":
                 for(String m: mapNames)
                     source.sendMessage(ChatColor.GREEN + maps.get(m).getName() + ChatColor.WHITE + " | " + ChatColor.BLUE + maps.get(m).getTitle());
