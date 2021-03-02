@@ -96,31 +96,31 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
             }
         }//players that didn't join become spectators
 
-        m.getImportantPoints().get("RedSpawn1").toBukkitLoc().add(0, 3, 0).getBlock().setType(Material.RED_STAINED_GLASS);
+        m.getImportantPoints().get("RedSpawn2").toBukkitLoc().add(0, 3, 0).getBlock().setType(Material.RED_STAINED_GLASS);
         m.getImportantPoints().get("RedSpawn2").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.RED_BANNER);
-        m.getImportantPoints().get("RedSpawn1").toBukkitLoc().getBlock().setType(Material.BEACON);
-        m.getImportantPoints().get("RedSpawn1").toBukkitLoc().getBlock().getRelative(0, -1, -1).setType(Material.IRON_BLOCK);
-        m.getImportantPoints().get("RedSpawn1").toBukkitLoc().getBlock().getRelative(0, -1, 0).setType(Material.IRON_BLOCK);
-        m.getImportantPoints().get("RedSpawn1").toBukkitLoc().getBlock().getRelative(0, -1, 1).setType(Material.IRON_BLOCK);
-        m.getImportantPoints().get("RedSpawn1").toBukkitLoc().getBlock().getRelative(1, -1, -1).setType(Material.IRON_BLOCK);
-        m.getImportantPoints().get("RedSpawn1").toBukkitLoc().getBlock().getRelative(1, -1, 0).setType(Material.IRON_BLOCK);
-        m.getImportantPoints().get("RedSpawn1").toBukkitLoc().getBlock().getRelative(1, -1, 1).setType(Material.IRON_BLOCK);
-        m.getImportantPoints().get("RedSpawn1").toBukkitLoc().getBlock().getRelative(-1, -1, -1).setType(Material.IRON_BLOCK);
-        m.getImportantPoints().get("RedSpawn1").toBukkitLoc().getBlock().getRelative(-1, -1, 0).setType(Material.IRON_BLOCK);
-        m.getImportantPoints().get("RedSpawn1").toBukkitLoc().getBlock().getRelative(-1, -1, 1).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("RedSpawn2").toBukkitLoc().getBlock().setType(Material.BEACON);
+        m.getImportantPoints().get("RedSpawn2").toBukkitLoc().getBlock().getRelative(0, -1, -1).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("RedSpawn2").toBukkitLoc().getBlock().getRelative(0, -1, 0).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("RedSpawn2").toBukkitLoc().getBlock().getRelative(0, -1, 1).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("RedSpawn2").toBukkitLoc().getBlock().getRelative(1, -1, -1).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("RedSpawn2").toBukkitLoc().getBlock().getRelative(1, -1, 0).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("RedSpawn2").toBukkitLoc().getBlock().getRelative(1, -1, 1).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("RedSpawn2").toBukkitLoc().getBlock().getRelative(-1, -1, -1).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("RedSpawn2").toBukkitLoc().getBlock().getRelative(-1, -1, 0).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("RedSpawn2").toBukkitLoc().getBlock().getRelative(-1, -1, 1).setType(Material.IRON_BLOCK);
 
-        m.getImportantPoints().get("BlueSpawn1").toBukkitLoc().add(0, 3, 0).getBlock().setType(Material.BLUE_STAINED_GLASS);
+        m.getImportantPoints().get("BlueSpawn2").toBukkitLoc().add(0, 3, 0).getBlock().setType(Material.BLUE_STAINED_GLASS);
         m.getImportantPoints().get("BlueSpawn2").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.BLUE_BANNER);
-        m.getImportantPoints().get("BlueSpawn1").toBukkitLoc().getBlock().setType(Material.BEACON);
-        m.getImportantPoints().get("BlueSpawn1").toBukkitLoc().getBlock().getRelative(0, -1, -1).setType(Material.IRON_BLOCK);
-        m.getImportantPoints().get("BlueSpawn1").toBukkitLoc().getBlock().getRelative(0, -1, 0).setType(Material.IRON_BLOCK);
-        m.getImportantPoints().get("BlueSpawn1").toBukkitLoc().getBlock().getRelative(0, -1, 1).setType(Material.IRON_BLOCK);
-        m.getImportantPoints().get("BlueSpawn1").toBukkitLoc().getBlock().getRelative(1, -1, -1).setType(Material.IRON_BLOCK);
-        m.getImportantPoints().get("BlueSpawn1").toBukkitLoc().getBlock().getRelative(1, -1, 0).setType(Material.IRON_BLOCK);
-        m.getImportantPoints().get("BlueSpawn1").toBukkitLoc().getBlock().getRelative(1, -1, 1).setType(Material.IRON_BLOCK);
-        m.getImportantPoints().get("BlueSpawn1").toBukkitLoc().getBlock().getRelative(-1, -1, -1).setType(Material.IRON_BLOCK);
-        m.getImportantPoints().get("BlueSpawn1").toBukkitLoc().getBlock().getRelative(-1, -1, 0).setType(Material.IRON_BLOCK);
-        m.getImportantPoints().get("BlueSpawn1").toBukkitLoc().getBlock().getRelative(-1, -1, 1).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("BlueSpawn2").toBukkitLoc().getBlock().setType(Material.BEACON);
+        m.getImportantPoints().get("BlueSpawn2").toBukkitLoc().getBlock().getRelative(0, -1, -1).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("BlueSpawn2").toBukkitLoc().getBlock().getRelative(0, -1, 0).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("BlueSpawn2").toBukkitLoc().getBlock().getRelative(0, -1, 1).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("BlueSpawn2").toBukkitLoc().getBlock().getRelative(1, -1, -1).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("BlueSpawn2").toBukkitLoc().getBlock().getRelative(1, -1, 0).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("BlueSpawn2").toBukkitLoc().getBlock().getRelative(1, -1, 1).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("BlueSpawn2").toBukkitLoc().getBlock().getRelative(-1, -1, -1).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("BlueSpawn2").toBukkitLoc().getBlock().getRelative(-1, -1, 0).setType(Material.IRON_BLOCK);
+        m.getImportantPoints().get("BlueSpawn2").toBukkitLoc().getBlock().getRelative(-1, -1, 1).setType(Material.IRON_BLOCK);
 
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(PVPPlugin.getPlugin(), () -> {
