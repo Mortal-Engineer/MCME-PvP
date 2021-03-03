@@ -62,7 +62,7 @@ public class Map {
     private String title;
     private HashMap<String, EventLocation> ImportantPoints = new HashMap<>();
     private ArrayList<EventLocation> regionPoints = new ArrayList<>();
-    private boolean fbt;
+    private Boolean fbt;
     
     @JsonIgnore
     private Region region;
@@ -313,10 +313,11 @@ public class Map {
         this.title = title;
     }
 
-    public void setFbt(boolean fbt) {
+    public void setFbt(Boolean fbt) {
         this.fbt = fbt;
     }
-    public boolean getFbt(){
+
+    public Boolean getFbt(){
         return fbt;
     }
 

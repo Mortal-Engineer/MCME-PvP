@@ -40,6 +40,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import sun.java2d.loops.Blit;
 
 import java.io.File;
 import java.util.*;
@@ -69,13 +70,10 @@ public class PVPCommand extends CommandDispatcher<Player>{
         PVPPlugin = PVPPlugin1;
         reloadMaplist();
         register(LiteralArgumentBuilder.<Player>literal("pvp")
-                .then(LiteralArgumentBuilder.<Player>literal("fbt")
-                .executes(
-                        c->{
+                .then(LiteralArgumentBuilder.<Player>literal("fbt").executes(c->{
                             doCommand("fbt", (Player) c.getSource());
                             return 1;
-                        }
-                ))
+                        }))
             .then(LiteralArgumentBuilder.<Player>literal("map")
                 .then(LiteralArgumentBuilder.<Player>literal("list").executes(c -> {
                     doCommand("mapList", c.getSource());
@@ -216,6 +214,11 @@ public class PVPCommand extends CommandDispatcher<Player>{
                     doCommand("listSpawns", c.getArgument("map", String.class), c.getSource());
                     return 1;
                 }))
+                    .then(LiteralArgumentBuilder.<Player>literal("fbt")
+                            .then(RequiredArgumentBuilder.<Player, String>argument("fbt", new CommandStringArgument("true","false")).executes(c -> {
+                                doCommand("fbt", c.getArgument("map", String.class), c.getArgument("fbt", String.class), c.getSource());
+                                return 1;
+                            })))
             )
         );
     }
@@ -229,8 +232,12 @@ public class PVPCommand extends CommandDispatcher<Player>{
                         if (m.getFbt()) {
                             source.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 2));
                         }
+                        else source.sendMessage("this map does not support full brightness");
                     }
+                    else source.sendMessage("no map currently selected");
                 }
+                else source.sendMessage("no game currently running");
+                break;
             case "mapList":
                 for(String m: mapNames)
                     source.sendMessage(ChatColor.GREEN + maps.get(m).getName() + ChatColor.WHITE + " | " + ChatColor.BLUE + maps.get(m).getTitle());
@@ -244,11 +251,14 @@ public class PVPCommand extends CommandDispatcher<Player>{
                     nextGame.getGm().Start(nextGame, parameter);
                     runningGame = nextGame;
                     nextGame = null;
-                    Map m = getNextGame();
+                    Map m = getRunningGame();
                     if(m.getFbt()){
-                        for(Player e : Bukkit.getOnlinePlayers()) {
-                            Objects.requireNonNull(e.getPlayer()).addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 2));
+                        for(Player p : Bukkit.getOnlinePlayers()) {
+                            Objects.requireNonNull(p).addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 2));
                         }
+                    }
+                    else for(Player p : Bukkit.getOnlinePlayers()){
+                        p.removePotionEffect(PotionEffectType.NIGHT_VISION);
                     }
                 }
                 else{
