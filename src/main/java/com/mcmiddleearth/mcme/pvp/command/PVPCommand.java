@@ -596,6 +596,9 @@ public class PVPCommand extends CommandDispatcher<Player>{
             case "setSpawnLoc":
                 MapEditor.PointLocEdit(argument1, argument2, source);
                 break;
+            case "fbt":
+                MapEditor.BrightnessSet(argument1,argument2,source);
+                break;
         }
     }
 
