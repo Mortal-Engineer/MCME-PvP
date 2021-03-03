@@ -170,11 +170,13 @@ public class CaptureTheFlag extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePlug
     public void End(Map m){
         state = GameState.IDLE;
 
-        m.getImportantPoints().get("RedSpawn1").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.AIR);
-        m.getImportantPoints().get("RedSpawn1").toBukkitLoc().add(0, 3, 0).getBlock().setType(Material.AIR);
+        m.getImportantPoints().get("RedSpawn2").toBukkitLoc().getBlock().setType(Material.AIR);
+        m.getImportantPoints().get("RedSpawn2").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.AIR);
+        m.getImportantPoints().get("RedSpawn2").toBukkitLoc().add(0, 3, 0).getBlock().setType(Material.AIR);
 
-        m.getImportantPoints().get("BlueSpawn1").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.AIR);
-        m.getImportantPoints().get("BlueSpawn1").toBukkitLoc().add(0, 3, 0).getBlock().setType(Material.AIR);
+        m.getImportantPoints().get("BlueSpawn2").toBukkitLoc().getBlock().setType(Material.AIR);
+        m.getImportantPoints().get("BlueSpawn2").toBukkitLoc().add(0, 1, 0).getBlock().setType(Material.AIR);
+        m.getImportantPoints().get("BlueSpawn2").toBukkitLoc().add(0, 3, 0).getBlock().setType(Material.AIR);
 
         getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
         m.playerLeaveAll();
