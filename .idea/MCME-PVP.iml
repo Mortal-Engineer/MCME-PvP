@@ -56,7 +56,7 @@
     <orderEntry type="module-library">
       <library name="Maven: org.bukkit:craftbukkit:1.15.2-R1-SNAPSHOT">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../../Programme/Minecraft/spigot/1.15.2/cache/patched_1.15.2.jar!/" />
+          <root url="jar://C:/Programme/Minecraft/spigot/1.15.2/cache/patched_1.15.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
