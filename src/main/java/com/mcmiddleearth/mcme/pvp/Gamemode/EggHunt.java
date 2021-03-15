@@ -418,27 +418,9 @@ public class EggHunt extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGamem
     }
 
     private class Gamepvp implements Listener{
-
-        @EventHandler
-        public void onPlayerDeath(PlayerDeathEvent e){
-
-            if(e.getEntity() instanceof Player && e.getEntity().getKiller() != null && state == GameState.RUNNING){
-
-                if(e.getEntity().getKiller() instanceof Player){
-                    int tempDeaths;
-                    Points.getScore(ChatHandler.getPlayerColors().get(e.getEntity().getKiller().getName()) + e.getEntity().getKiller().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getEntity().getKiller().getName()) + e.getEntity().getKiller().getName()).getScore() + 1);
-
-                    if(playerDeaths.containsKey(e.getEntity().getName())){
-                        tempDeaths = Integer.parseInt(playerDeaths.get(e.getEntity().getName()));
-                        playerDeaths.remove(e.getEntity().getName());
-                        playerDeaths.put(e.getEntity().getName(), String.valueOf(tempDeaths + 1));
-                    }
-                    else{
-                        playerDeaths.put(e.getEntity().getName(), "1");
-                    }
-                }
-            }
         }
+
+        '''INPUT WOOL CODE HERE'''
 
         @EventHandler
         public void onPlayerRespawn(PlayerRespawnEvent e){
