@@ -14,6 +14,7 @@ import com.mcmiddleearth.mcme.pvp.Util.EventLocation;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -418,9 +419,54 @@ public class EggHunt extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGamem
     }
 
     private class Gamepvp implements Listener{
-        }
 
-        '''INPUT WOOL CODE HERE'''
+//Red Wool = 1 points, Orange Wool = 2 points, Green Wool = 3 points, Blue Wool = 4 points, Pink Wool = 5 points
+
+        @EventHandler
+
+        if(state == GameState.RUNNING && players.contains(e.getPlayer()) &&
+                e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
+
+        public void onPlayerInteract(PlayerInteractEvent e){
+
+            if(e.getClickedBlock().getType().equals(Material.RED_WOOL)){
+                e.getEntity().getPlayer().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getEntity().getKiller().getName()) + e.getEntity().getKiller().getName()).getScore() + 1);
+            }
+            else if(e.getClickedBlock().getType().equals(Material.ORANGE_WOOL)){
+                e.getEntity().getPlayer().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getEntity().getKiller().getName()) + e.getEntity().getKiller().getName()).getScore() + 2);
+            }
+            else if(e.getClickedBlock().getType().equals(Material.GREEN_WOOL)){
+                e.getEntity().getPlayer().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getEntity().getKiller().getName()) + e.getEntity().getKiller().getName()).getScore() + 3);
+            }
+            else if(e.getClickedBlock().getType().equals(Material.BLUE_WOOL)){
+                e.getEntity().getPlayer().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getEntity().getKiller().getName()) + e.getEntity().getKiller().getName()).getScore() + 4);
+            }
+            else if(e.getClickedBlock().getType().equals(Material.PINK_WOOL)){
+                e.getEntity().getPlayer().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getEntity().getKiller().getName()) + e.getEntity().getKiller().getName()).getScore() + 5);
+            }
+        }
+        }
+    }
+        @EventHandler
+        public void onPlayerDeath(PlayerDeathEvent e){
+
+            if(e.getEntity() instanceof Player && e.getEntity().getKiller() != null && state == GameState.RUNNING){
+
+                if(e.getEntity().getKiller() instanceof Player){
+                    int tempDeaths;
+                    Points.getScore(ChatHandler.getPlayerColors().get(e.getEntity().getKiller().getName()) + e.getEntity().getKiller().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getEntity().getKiller().getName()) + e.getEntity().getKiller().getName()).getScore() - 1);
+
+                    if(playerDeaths.containsKey(e.getEntity().getName())){
+                        tempDeaths = Integer.parseInt(playerDeaths.get(e.getEntity().getName()));
+                        playerDeaths.remove(e.getEntity().getName());
+                        playerDeaths.put(e.getEntity().getName(), String.valueOf(tempDeaths - 1));
+                    }
+                    else{
+                        playerDeaths.put(e.getEntity().getName(), "1");
+                    }
+                }
+            }
+        }
 
         @EventHandler
         public void onPlayerRespawn(PlayerRespawnEvent e){
