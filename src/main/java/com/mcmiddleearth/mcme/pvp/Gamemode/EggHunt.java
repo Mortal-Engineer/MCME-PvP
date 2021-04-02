@@ -18,7 +18,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -31,6 +33,8 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+
+import static com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGamemode.GameState.*;
 
 /**
  *
@@ -81,7 +85,7 @@ public class EggHunt extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGamem
     private EventLocation[] spawns;
 
     public EggHunt(){
-        state = GameState.IDLE;
+        state = IDLE;
     }
 
     Runnable tick = new Runnable(){
@@ -144,7 +148,7 @@ public class EggHunt extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGamem
         map = m;
         count = PVPPlugin.getCountdownTime();
         time = parameter;
-        state = GameState.COUNTDOWN;
+        state = COUNTDOWN;
         spawns = map.getImportantPoints().values().toArray(new EventLocation[0]);
         if(!map.getImportantPoints().keySet().containsAll(NeededPoints)){
             for(Player p : players){
@@ -183,7 +187,7 @@ public class EggHunt extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGamem
             public void run() {
 
                 if(count == 0){
-                    if(state == GameState.RUNNING){
+                    if(state == RUNNING){
                         return;
                     }
                     Bukkit.getScheduler().scheduleSyncRepeatingTask(PVPPlugin.getPlugin(), tick, 0, 20);
@@ -226,7 +230,7 @@ public class EggHunt extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGamem
                             k++;
                         }
                     }
-                    state = GameState.RUNNING;
+                    state = RUNNING;
                     count = -1;
 
                     for(Player p : players){
@@ -246,7 +250,7 @@ public class EggHunt extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGamem
 
     public void End(Map m){
         PlayerStat.addGameSpectatedAll();
-        state = GameState.IDLE;
+        state = IDLE;
         hasPlayed.clear();
 
         ArrayList<String> mostDeaths = new ArrayList<String>();
@@ -423,34 +427,33 @@ public class EggHunt extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGamem
 //Red Wool = 1 points, Orange Wool = 2 points, Green Wool = 3 points, Blue Wool = 4 points, Pink Wool = 5 points
 
         @EventHandler
-
-        if(state == GameState.RUNNING && players.contains(e.getPlayer()) &&
-                e.getAction().equals(Action.RIGHT_CLICK_BLOCK)){
-
         public void onPlayerInteract(PlayerInteractEvent e){
 
+            if(state == RUNNING && players.contains(e.getPlayer()) && e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+
             if(e.getClickedBlock().getType().equals(Material.RED_WOOL)){
-                e.getEntity().getPlayer().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getEntity().getKiller().getName()) + e.getEntity().getKiller().getName()).getScore() + 1);
+                Points.getScore(ChatHandler.getPlayerColors().get(e.getPlayer().getName()) + e.getPlayer().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getPlayer().getName()) + e.getPlayer().getName()).getScore() + 1);
             }
             else if(e.getClickedBlock().getType().equals(Material.ORANGE_WOOL)){
-                e.getEntity().getPlayer().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getEntity().getKiller().getName()) + e.getEntity().getKiller().getName()).getScore() + 2);
+                Points.getScore(ChatHandler.getPlayerColors().get(e.getPlayer().getName()) + e.getPlayer().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getPlayer().getName()) + e.getPlayer().getName()).getScore() + 2);
             }
             else if(e.getClickedBlock().getType().equals(Material.GREEN_WOOL)){
-                e.getEntity().getPlayer().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getEntity().getKiller().getName()) + e.getEntity().getKiller().getName()).getScore() + 3);
+                Points.getScore(ChatHandler.getPlayerColors().get(e.getPlayer().getName()) + e.getPlayer().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getPlayer().getName()) + e.getPlayer().getName()).getScore() + 3);
             }
             else if(e.getClickedBlock().getType().equals(Material.BLUE_WOOL)){
-                e.getEntity().getPlayer().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getEntity().getKiller().getName()) + e.getEntity().getKiller().getName()).getScore() + 4);
+                Points.getScore(ChatHandler.getPlayerColors().get(e.getPlayer().getName()) + e.getPlayer().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getPlayer().getName()) + e.getPlayer().getName()).getScore() + 4);
             }
             else if(e.getClickedBlock().getType().equals(Material.PINK_WOOL)){
-                e.getEntity().getPlayer().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getEntity().getKiller().getName()) + e.getEntity().getKiller().getName()).getScore() + 5);
+                Points.getScore(ChatHandler.getPlayerColors().get(e.getPlayer().getName()) + e.getPlayer().getName()).setScore(Points.getScore(ChatHandler.getPlayerColors().get(e.getPlayer().getName()) + e.getPlayer().getName()).getScore() + 5);
             }
         }
         }
-    }
+        }
+
         @EventHandler
         public void onPlayerDeath(PlayerDeathEvent e){
 
-            if(e.getEntity() instanceof Player && e.getEntity().getKiller() != null && state == GameState.RUNNING){
+            if(e.getEntity() instanceof Player && e.getEntity().getKiller() != null && state == RUNNING){
 
                 if(e.getEntity().getKiller() instanceof Player){
                     int tempDeaths;
@@ -471,7 +474,7 @@ public class EggHunt extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGamem
         @EventHandler
         public void onPlayerRespawn(PlayerRespawnEvent e){
 
-            if(state == GameState.RUNNING){
+            if(state == RUNNING){
                 Random random = new Random();
 
                 e.setRespawnLocation(spawns[random.nextInt(spawns.length)].toBukkitLoc().add(0, 2, 0));
@@ -480,7 +483,7 @@ public class EggHunt extends com.mcmiddleearth.mcme.pvp.Gamemode.BasePluginGamem
             }
             Logger.getLogger("PVP").log(Level.INFO, e.getRespawnLocation().toString());
         }
-    }
+
 
     @Override
     public ArrayList<String> getNeededPoints() {
